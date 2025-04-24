@@ -243,60 +243,54 @@ const SingleBlogMainSection = () => {
             className="flex space-x-4 overflow-x-hidden pb-4 scroll-smooth"
           >
             {cardItems.map((card) => (
-              <div
+              <Link
                 key={card.id}
-                className="flex-none bg-white p-4 rounded-lg shadow-md w-72"
+                to={`/packages/srilanka`}
+                className="flex-none relative w-73 h-[420px] rounded-lg shadow-md overflow-hidden group"
               >
-                {/* Image Container with Heart Icon */}
-                <div className="relative">
-                  <img
-                    src={card.imageUrl}
-                    alt={card.title}
-                    className="w-full h-40 object-cover rounded-md mb-4"
+                {/* Full-size Image */}
+                <img
+                  src={card.imageUrl}
+                  alt={card.title}
+                  className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-300"
+                />
+
+                {/* Heart Icon */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // prevent navigation on heart click
+                    toggleLike(card.id);
+                  }}
+                  className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:text-red-500 transition"
+                >
+                  <Heart
+                    size={20}
+                    fill={likedCards[card.id] ? "red" : "none"}
+                    color={likedCards[card.id] ? "red" : "gray"}
                   />
+                </button>
 
-                  {/* Heart Icon */}
-                  <button
-                    onClick={() => toggleLike(card.id)}
-                    className="absolute top-2 right-2 bg-white rounded-full p-1 shadow hover:text-red-500 transition"
-                  >
-                    <Heart
-                      size={20}
-                      fill={likedCards[card.id] ? "red" : "none"}
-                      color={likedCards[card.id] ? "red" : "gray"}
-                    />
-                  </button>
-                </div>
+                {/* Darker Overlay Info */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 text-white">
+                  <h3 className="font-semibold text-lg mb-1 text-center">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-gray-200 mb-2 text-center line-clamp-2">
+                    {card.description}
+                  </p>
 
-                {/* Title */}
-                <h3 className="font-semibold text-xl mb-1">{card.title}</h3>
-
-                {/* Description */}
-                <p className="text-gray-600 text-sm mb-2 line-clamp-3">
-                  {card.description}
-                </p>
-
-                {/* Rating + Price */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex text-yellow-400 text-sm">
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <span key={i}>{i < card.rating ? "★" : "☆"}</span>
-                    ))}
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex text-yellow-400">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <span key={i}>{i < card.rating ? "★" : "☆"}</span>
+                      ))}
+                    </div>
+                    <span className="text-green-400 font-medium">
+                      ${card.price}
+                    </span>
                   </div>
-                  <span className="text-green-600 font-medium text-sm">
-                    ${card.price}
-                  </span>
                 </div>
-
-                {/* View Button */}
-                <div className="flex gap-2">
-                  <Link to={`/packages/srilanka`} className="flex-1">
-                    <button className="w-full border border-blue-600 text-black px-3 py-1.5 rounded hover:bg-blue-500 hover:text-white transition cursor-pointer">
-                      View
-                    </button>
-                  </Link>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

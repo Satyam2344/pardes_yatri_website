@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        dancing: ["Dancing", "sans-serif"],
+        dancing: ["Dancing Script", "cursive"],
+        dmserif: ["DM Serif Display", "serif"],
       },
     },
   },

@@ -143,12 +143,12 @@ const MainSection = () => {
       {/*  Section (Middle Content) */}
       <div className="max-w-full mx-sm flex flex-col md:flex-row gap-4">
         {/* Left Sidebar */}
-        <aside className="w-full md:w-[7.5%] bg-white p-4 rounded "></aside>
+        <aside className="w-full md:w-[7.5%] bg-white p-4 rounded"></aside>
 
-        <section className="w-full md:w-[85%] bg-white p-4 rounded  relative mb-8">
+        <section className="w-full md:w-[85%] bg-white p-4 rounded relative mb-8">
           {/* Header with Heading on the Left and Buttons on the Right */}
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Trending destinations</h1>
+            <h1 className="text-3xl font-bold">Trending destinations</h1>
             <div className="flex space-x-2">
               <button
                 onClick={() => handleScroll("left", cardGridRef1)}
@@ -222,7 +222,7 @@ const MainSection = () => {
           </div>
           {/* Header with Heading on the Left and Buttons on the Right */}
           <div className="flex justify-between items-center mb-4 mt-8">
-            <h1 className="text-2xl font-bold">Recently Booked</h1>
+            <h1 className="text-3xl font-bold">Recently Booked</h1>
             <div className="flex space-x-2">
               <button
                 onClick={() => handleScroll("left", cardGridRef2)}
@@ -351,7 +351,7 @@ const MainSection = () => {
 
           {/* Rounded city of europe */}
           <div className="max-w-7xl my-10 mx-auto">
-            <h2 className="text-2xl font-bold text-center mb-8">Europe Tour</h2>
+            <h2 className="text-4xl font-bold text-center mb-8">Europe Tour</h2>
 
             <div className="flex flex-wrap justify-center gap-6">
               {cities.map((item) => (
@@ -368,7 +368,7 @@ const MainSection = () => {
                     />
                   </Link>
 
-                  <p className="mt-2 text-center text-sm font-medium">
+                  <p className="mt-2 text-center text-md font-medium">
                     {item.title}
                   </p>
                 </div>
@@ -380,7 +380,7 @@ const MainSection = () => {
           <div className="mt-8">
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Middle East Vacations</h2>
+              <h2 className="text-3xl font-bold">Middle East Vacations</h2>
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleScroll("left", gridRef1)} // <-- fixed
@@ -442,7 +442,7 @@ const MainSection = () => {
           <div className="mt-10">
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-3xl font-bold">
                 United States Famous Destinations
               </h2>
               <div className="flex space-x-2">
@@ -543,7 +543,7 @@ const MainSection = () => {
             <div className="mb-6">
               <label
                 htmlFor="region"
-                className="block text-3xl font-semibold text-center mb-4"
+                className="block text-3xl font-bold text-center mb-4"
               >
                 Explore All Packages
               </label>

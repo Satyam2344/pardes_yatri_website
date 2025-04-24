@@ -12,6 +12,7 @@ import SingleBlog from "./pages/SingleBlog";
 import SinglePackage from "./pages/SinglePackage";
 import Overview from "./pages/Overview";
 import SelectionPage from "./pages/SelectionPage";
+import BookingForm from "./pages/BookingForm";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/packages/srilanka" element={<SinglePackage />} />
           <Route path="/packages/srilanka/details" element={<Overview />} />
           <Route path="/selectdestination" element={<SelectionPage />} />
+          <Route path="/bookingForm" element={<BookingForm />} />
         </Routes>
       </Router>
     </>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -110,12 +110,17 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {/* Brand Info */}
           <div>
-            <h2 className="text-2xl font-bold text-indigo-400 mb-2">
-              PARDISE YATRA
-            </h2>
+            {/* Heading with image */}
+            <div className="flex items-center gap-3 mb-2">
+              <h2 className="text-2xl font-bold text-indigo-400">
+                PARDISE YATRA
+              </h2>
+            </div>
+
             <p className="text-yellow-400 mb-4">Yatra To Paradise</p>
 
-            <div className="flex items-center gap-2 mb-2">
+            {/* Location */}
+            <div className="flex items-start gap-2 mb-2">
               <img
                 src="/src/assets/images/others/location.png"
                 alt="Location"
@@ -127,6 +132,7 @@ const Footer = () => {
               </span>
             </div>
 
+            {/* Phone */}
             <div className="flex items-center gap-2">
               <img
                 src="/src/assets/images/others/phone.png"

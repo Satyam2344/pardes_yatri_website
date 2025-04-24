@@ -6,7 +6,7 @@ export class ContactForm extends Component {
       <div className="lg:max-w-[50%] max-w-[85%] mx-auto">
         {/* Contact Form Section */}
         {/* Responsive Section Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mt-2 mb-6">
+        <h1 className="text-4xl font-bold text-center mt-2 mb-6">
           Get in Touch With Us
         </h1>
 

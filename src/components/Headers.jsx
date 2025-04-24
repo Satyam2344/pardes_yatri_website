@@ -26,7 +26,7 @@ export default function Headers() {
               alt="Logo"
               className="w-20 md:w-32 lg:w-20 h-16 md:h-20 lg:h-16 object-contain"
             />
-            <h2 className="text-2xl font-extrabold text-blue-800">
+            <h2 className="font-dancing text-2xl font-extrabold text-blue-800">
               PARADISE YATRA
             </h2>
           </Link>

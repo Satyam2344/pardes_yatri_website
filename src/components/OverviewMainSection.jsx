@@ -17,6 +17,27 @@ import "leaflet/dist/leaflet.css";
 import imageUrl from "/src/assets/images/srilankabanner.jpg";
 import { MapPin, Clock } from "lucide-react";
 import { Link } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
+import {
+  FaRegCheckCircle,
+  FaTaxi,
+  FaUtensils,
+  FaBed,
+  FaBusAlt,
+} from "react-icons/fa";
+import {
+  FaRegTimesCircle,
+  FaHotel,
+  FaMoneyBillWave,
+  FaPlane,
+  FaMedkit,
+} from "react-icons/fa";
+import {
+  FaRegLightbulb,
+  FaSuitcaseRolling,
+  FaUmbrella,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 
 const OverviewMainSection = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -67,21 +88,158 @@ const OverviewMainSection = () => {
     },
   ];
   const overview = {
-    title: "House Rental",
+    title: "Sri Lanka Coastal Retreat",
     description:
-      "Thai Colonial Style with classical touch. The house is 10 mins drive to BTS Thonglor. Few steps to local area that you can grab local food in cheap price and also another few steps to Thong Lor area where the famous hanging out area and many stylish restaurants in just 10 mins walk. Easily access to BTS with local tuk tuk just in front of the house.",
+      "Experience the charm of Sri Lanka with this cozy, modern coastal house nestled near the vibrant streets of Galle. Just a 10-minute tuk-tuk ride from Galle Fort and a short stroll from golden beaches, this home offers the perfect mix of culture, relaxation, and local flavor. Enjoy peaceful mornings with sea breezes and spend your evenings exploring seaside cafés and bustling markets.",
     highlights: [
-      "Local tuk tuk (shuttle to BTS) is just a few step from house.",
-      "To Thong lor famous area only 10 mins walk. You can find many restaurant there",
-      "BTS Thonglor and Phrom Pong 2 km = 25 mins walk",
-      "J-Avenue and Supermarket 15 mins walk",
-      "7-11 and Local food area 5 mins walk",
-      "Local restaurant only 1 min walk",
-      "To famous Japanese and restaurant area is only 10 mins walk",
+      "Local tuk-tuks easily available from right outside the house.",
+      "Only 10 minutes by tuk-tuk to historic Galle Fort and iconic lighthouse.",
+      "Beach access just a 5-minute walk — perfect for morning swims or sunset views.",
+      "Authentic Sri Lankan street food stalls 3 mins walk from the home.",
+      "Supermarkets, cafés, and boutique stores all within a 10-minute walking radius.",
+      "Ayurvedic spas and yoga studios nearby for relaxation and wellness.",
+      "Train station nearby — easy day trips to Unawatuna and Mirissa beaches.",
     ],
-    houseRules: ["Pets not allowed", "Not suitable for children", "No smoking"],
-    bathrooms: "2 Full baths",
+    tripRules: [
+      "No loud parties",
+      "No smoking indoors",
+      "Respect local customs",
+    ],
+    luggages: "Maximum 2 Bags with a person",
   };
+
+  const itinerary = [
+    {
+      day: 1,
+      title: "Arrival in Colombo",
+      description:
+        "Land at Bandaranaike International Airport. Transfer to your hotel and explore Galle Face Green and Pettah Market.",
+    },
+    {
+      day: 2,
+      title: "Colombo to Kandy",
+      description:
+        "Visit the Temple of the Sacred Tooth Relic, stroll around Kandy Lake, and explore local markets.",
+    },
+    {
+      day: 3,
+      title: "Kandy to Nuwara Eliya",
+      description:
+        "Scenic train ride through tea plantations. Visit a tea factory and relax by Gregory Lake.",
+    },
+    {
+      day: 4,
+      title: "Nuwara Eliya to Ella",
+      description:
+        "Drive to Ella. Visit Nine Arches Bridge, enjoy the view from Ella Rock or Little Adam’s Peak.",
+    },
+    {
+      day: 5,
+      title: "Ella to Yala National Park",
+      description:
+        "Head south to Yala for a wildlife safari. Spot elephants, leopards, and exotic birds.",
+    },
+    {
+      day: 6,
+      title: "Beach Day in Mirissa",
+      description:
+        "Relax at the beach, try surfing, and enjoy seafood. Optional whale watching tour in the morning.",
+    },
+    {
+      day: 7,
+      title: "Galle Fort & Departure",
+      description:
+        "Explore the Dutch Galle Fort, local cafés and art shops. Return to Colombo for departure.",
+    },
+  ];
+
+  const inclusions = [
+    {
+      id: 1,
+      icon: FaRegCheckCircle,
+      label: "All Entrance Fees to Attractions",
+    },
+    {
+      id: 2,
+      icon: FaTaxi,
+      label: "Airport Transfers",
+    },
+    {
+      id: 3,
+      icon: FaUtensils,
+      label: "Daily Breakfast and Selected Meals",
+    },
+    {
+      id: 4,
+      icon: FaBed,
+      label: "Accommodation in 3-Star Hotels",
+    },
+    {
+      id: 5,
+      icon: FaBusAlt,
+      label: "Transport via Air-Conditioned Vehicle",
+    },
+  ];
+
+  const exclusions = [
+    {
+      id: 1,
+      icon: FaRegTimesCircle,
+      label: "Personal Expenses (Shopping, Snacks)",
+    },
+    {
+      id: 2,
+      icon: FaPlane,
+      label: "International Flights (Arrivals & Departures)",
+    },
+    {
+      id: 3,
+      icon: FaHotel,
+      label: "Room Service or Special Requests in Hotels",
+    },
+    {
+      id: 4,
+      icon: FaMoneyBillWave,
+      label: "Tips & Gratuities for Guides and Drivers",
+    },
+    {
+      id: 5,
+      icon: FaMedkit,
+      label: "Travel Insurance (Recommended)",
+    },
+  ];
+
+  const others = [
+    {
+      id: 1,
+      icon: FaRegLightbulb,
+      label: "Local Culture & Etiquette",
+      details:
+        "Please be respectful of local customs, especially in religious sites. Modest clothing is recommended when visiting temples.",
+    },
+    {
+      id: 2,
+      icon: FaSuitcaseRolling,
+      label: "What to Pack",
+      details:
+        "We recommend packing lightweight, breathable clothing, a hat, sunscreen, and swimwear. Don’t forget your camera!",
+    },
+    {
+      id: 3,
+      icon: FaUmbrella,
+      label: "Weather Alerts",
+      details:
+        "Sri Lanka's weather is tropical. Carry an umbrella, especially if traveling between May and October due to monsoon seasons.",
+    },
+    {
+      id: 4,
+      icon: FaExclamationTriangle,
+      label: "Important Notes",
+      details:
+        "Due to local regulations, some areas may require additional permits or advance bookings for entry. Please check with us for more details.",
+    },
+  ];
+
   const mapLocation = {
     lat: 13.7468, // Latitude for the location
     lng: 100.5622, // Longitude for the location
@@ -111,7 +269,7 @@ const OverviewMainSection = () => {
   ];
 
   return (
-    <div className="flex justify-center px-2 mt-30 font-sans">
+    <div className="flex justify-center mt-30 font-sans">
       <div className="flex w-full max-w-screen-2xl">
         {/* Left Column */}
         <div className="hidden lg:block w-[10%] bg-white "></div>
@@ -135,11 +293,13 @@ const OverviewMainSection = () => {
                     className={`flex items-center gap-1 px-3 py-1.5 border rounded-full transition duration-200 cursor-pointer ${
                       liked
                         ? "bg-red-100 text-red-600 border-red-400"
-                        : "bg-white text-gray-600 border-gray-300"
+                        : "bg-white text-red-500 border-red-300"
                     } hover:bg-red-200 hover:border-red-400`}
                   >
                     <Heart size={18} fill={liked ? "currentColor" : "none"} />
-                    <span className="hidden sm:inline">Add to Wishlist</span>
+                    <span className="hidden sm:inline text-red-400 border-red-300">
+                      Add to Wishlist
+                    </span>
                   </button>
 
                   {/* Save Button */}
@@ -148,7 +308,7 @@ const OverviewMainSection = () => {
                     className={`flex items-center gap-1 px-3 py-1.5 border rounded-full transition duration-200 cursor-pointer ${
                       saved
                         ? "bg-blue-100 text-blue-600 border-blue-400"
-                        : "bg-white text-gray-600 border-gray-300"
+                        : "bg-white text-blue-600 border-blue-300"
                     } hover:bg-blue-200 hover:border-blue-400`}
                   >
                     <Bookmark
@@ -199,26 +359,25 @@ const OverviewMainSection = () => {
               </div>
 
               <div className="sticky top-0 bg-blue-200 rounded-lg border-white py-2">
-                <div className="flex justify-start gap-28 overflow-x-auto px-4 py-1 cursor-pointer">
+                <div className="flex justify-start gap-28 overflow-x-auto px-4 py-1 cursor-pointer no-scrollbar">
                   <Link
                     to="overview"
                     smooth
                     duration={500}
-                    className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors"
+                    className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors ml-6"
                   >
                     Overview
                   </Link>
                   <Link
-                    to="features"
+                    to="itinerary"
                     smooth
                     duration={500}
                     className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors"
                   >
                     Itinerary
                   </Link>
-
                   <Link
-                    to="map"
+                    to="inclusions"
                     smooth
                     duration={500}
                     className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors"
@@ -226,7 +385,7 @@ const OverviewMainSection = () => {
                     Inclusion
                   </Link>
                   <Link
-                    to="faq"
+                    to="exclusions"
                     smooth
                     duration={500}
                     className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors"
@@ -234,7 +393,7 @@ const OverviewMainSection = () => {
                     Exclusion
                   </Link>
                   <Link
-                    to="things-to-know"
+                    to="others"
                     smooth
                     duration={500}
                     className="text-gray-700 hover:text-blue-600 text-lg font-bold transition-colors"
@@ -247,32 +406,15 @@ const OverviewMainSection = () => {
               {/* Overview Section */}
               <div
                 id="overview"
-                className="px-4 py-2 bg-white w-full max-w-5xl mx-auto mt-8"
+                className="px-4 py-2 bg-white w-full text-center max-w-5xl mx-auto mt-8"
               >
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                   Overview
                 </h2>
               </div>
 
-              {/* Features Section (Dynamic) */}
-              <div
-                id="features"
-                className="px-4 py-6 bg-white w-full max-w-5xl mx-auto"
-              >
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-                  {features.map(({ id, icon: Icon, label, value }) => (
-                    <div key={id} className="flex flex-col items-center">
-                      <Icon className="w-6 h-6 text-blue-500 mb-2" />
-                      <p className="text-sm text-gray-700 font-medium">
-                        {value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* Overview Section */}
-              <div className="px-4 py-6 bg-white w-full max-w-5xl mx-auto space-y-6">
+              <div className="px-4 py-2 bg-white w-full max-w-5xl mx-auto space-y-6">
                 {/* Title */}
                 <h3 className="text-lg font-medium text-gray-800 mb-2">
                   {overview.title}
@@ -298,10 +440,10 @@ const OverviewMainSection = () => {
                 {/* House Rules */}
                 <div>
                   <h3 className="text-lg font-medium text-gray-800 mb-2">
-                    House Rules
+                    Trip Rules
                   </h3>
                   <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {overview.houseRules.map((rule, index) => (
+                    {overview.tripRules.map((rule, index) => (
                       <li key={index}>{rule}</li>
                     ))}
                   </ul>
@@ -310,36 +452,103 @@ const OverviewMainSection = () => {
                 {/* Bathrooms */}
                 <div>
                   <h3 className="text-lg font-medium text-gray-800 mb-2">
-                    Bathrooms
+                    Luggages
                   </h3>
-                  <p className="text-gray-700">{overview.bathrooms}</p>
+                  <p className="text-gray-700">{overview.luggages}</p>
                 </div>
               </div>
 
-              {/* Map Section */}
-              <div className="w-full max-w-5xl mx-auto my-8 relative z-0">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                  Map
+              {/* Itinerary Section (Dynamic) */}
+              <div
+                id="itinerary"
+                className="px-4 py-6 bg-white w-full max-w-5xl mx-auto"
+              >
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
+                  Sri Lanka Itinerary
                 </h2>
-                <div className="h-[400px] w-full rounded-md overflow-hidden relative z-0">
-                  <MapContainer
-                    center={[mapLocation.lat, mapLocation.lng]}
-                    zoom={16}
-                    scrollWheelZoom={false}
-                    className="h-full w-full"
-                  >
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
-                    <Marker position={[mapLocation.lat, mapLocation.lng]}>
-                      <Popup>
-                        House Rental Location
-                        <br />
-                        Thonburi, Bangkok
-                      </Popup>
-                    </Marker>
-                  </MapContainer>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {itinerary.map(({ day, title, description }) => (
+                    <div
+                      key={day}
+                      className="bg-gray-50 rounded-xl shadow-sm p-4 flex flex-col items-start border border-gray-200"
+                    >
+                      <div className="text-sm text-indigo-500 font-semibold mb-1">
+                        Day {day}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-800 mb-2">
+                        {title}
+                      </h3>
+                      <p className="text-sm text-gray-600">{description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Inclusion section */}
+              <div
+                id="inclusions"
+                className="px-4 py-6 bg-white w-full max-w-5xl mx-auto"
+              >
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
+                  Trip Inclusions
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {inclusions.map(({ id, icon: Icon, label }) => (
+                    <div
+                      key={id}
+                      className="flex items-center space-x-3 bg-gray-50 rounded-xl shadow-sm p-4 border border-gray-200"
+                    >
+                      <Icon className="w-6 h-6 text-blue-500" />
+                      <p className="text-sm text-gray-700">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Exclusion section */}
+              <div
+                id="exclusions"
+                className="px-4 py-6 bg-white w-full max-w-5xl mx-auto"
+              >
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
+                  Trip Exclusions
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {exclusions.map(({ id, icon: Icon, label }) => (
+                    <div
+                      key={id}
+                      className="flex items-center space-x-3 bg-gray-50 rounded-xl shadow-sm p-4 border border-gray-200"
+                    >
+                      <Icon className="w-6 h-6 text-red-500" />
+                      <p className="text-sm text-gray-700">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Others section */}
+              <div
+                id="others"
+                className="px-4 py-8 bg-white w-full max-w-5xl mx-auto"
+              >
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
+                  Other Important Information
+                </h2>
+                <div className="space-y-6">
+                  {others.map(({ id, icon: Icon, label, details }) => (
+                    <div
+                      key={id}
+                      className="flex items-start space-x-4 bg-gray-50 rounded-xl shadow-sm p-4 border border-gray-200"
+                    >
+                      <Icon className="w-6 h-6 text-green-500" />
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                          {label}
+                        </h3>
+                        <p className="text-sm text-gray-700">{details}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -391,6 +600,7 @@ const OverviewMainSection = () => {
                   </ul>
                 </div>
               </div>
+
               <div className="my-8">
                 <h2 className="text-2xl font-semibold text-gray-700 mb-4">
                   Things to Know
@@ -438,7 +648,7 @@ const OverviewMainSection = () => {
               </div>
               <div className="container mx-auto p-4">
                 <h2 className="text-3xl font-bold text-black m-4">
-                  Similar Rentals
+                  Similar Pictures
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-2 max-w-[100%] md:max-w-[100%] place-items-center">
                   {/* Loop through the image URLs and display them */}
@@ -453,30 +663,30 @@ const OverviewMainSection = () => {
                   ))}
                 </div>
               </div>
-              <div class="relative w-full bg-white pt-2 pb-8 mt-4 sm:mx-auto sm:max-w-2xl sm:rounded-lg sm:px-4">
-                <div class=" px-2">
-                  <div class="flex flex-col items-center">
-                    <h2 class="mt-5 text-center text-3xl font-bold tracking-tight md:text-5xl">
+              <div className="relative w-full bg-white pt-2 pb-8 mt-4 sm:mx-auto sm:max-w-2xl sm:rounded-lg sm:px-4">
+                <div className=" px-2">
+                  <div className="flex flex-col items-center">
+                    <h2 className="mt-5 text-center text-3xl font-bold tracking-tight md:text-5xl">
                       FAQ
                     </h2>
-                    <p class="mt-3 text-lg text-neutral-500 md:text-xl">
+                    <p className="mt-3 text-lg text-neutral-500 md:text-xl">
                       Frequenty asked questions
                     </p>
                   </div>
-                  <div class="mx-auto mt-8 grid max-w-full divide-y divide-neutral-200">
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                  <div className="mx-auto mt-8 grid max-w-full divide-y divide-neutral-200">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span> How does the billing work?</span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -484,7 +694,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           Springerdata offers a variety of billing options,
                           including monthly and annual subscription plans, as
                           well as pay-as-you-go pricing for certain services.
@@ -493,19 +703,19 @@ const OverviewMainSection = () => {
                         </p>
                       </details>
                     </div>
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span> Can I get a refund for my subscription?</span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -513,7 +723,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           We offer a 30-day money-back guarantee for most of its
                           subscription plans. If you are not satisfied with your
                           subscription within the first 30 days, you can request
@@ -523,19 +733,19 @@ const OverviewMainSection = () => {
                         </p>
                       </details>
                     </div>
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span> How do I cancel my subscription?</span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -543,7 +753,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           To cancel your subscription, you can log in to your
                           account and navigate to the subscription management
                           page. From there, you should be able to cancel your
@@ -551,19 +761,19 @@ const OverviewMainSection = () => {
                         </p>
                       </details>
                     </div>
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span> Is there a free trial?</span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -571,7 +781,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           We offer a free trial of our software for a limited
                           time. During the trial period, you will have access to
                           a limited set of features and functionality, but you
@@ -579,19 +789,19 @@ const OverviewMainSection = () => {
                         </p>
                       </details>
                     </div>
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span> How do I contact support?</span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -599,7 +809,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           If you need help with our platform or have any other
                           questions, you can contact the company's support team
                           by submitting a support request through the website or
@@ -607,22 +817,22 @@ const OverviewMainSection = () => {
                         </p>
                       </details>
                     </div>
-                    <div class="py-5">
-                      <details class="group">
-                        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+                    <div className="py-5">
+                      <details className="group">
+                        <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                           <span>
                             {" "}
                             Do you offer any discounts or promotions?
                           </span>
-                          <span class="transition group-open:rotate-180">
+                          <span className="transition group-open:rotate-180">
                             <svg
                               fill="none"
                               height="24"
-                              shape-rendering="geometricPrecision"
+                              shapeRendering="geometricPrecision"
                               stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
                               viewBox="0 0 24 24"
                               width="24"
                             >
@@ -630,7 +840,7 @@ const OverviewMainSection = () => {
                             </svg>
                           </span>
                         </summary>
-                        <p class="group-open:animate-fadeIn mt-3 text-neutral-600">
+                        <p className="group-open:animate-fadeIn mt-3 text-neutral-600">
                           We may offer discounts or promotions from time to
                           time. To stay up-to-date on the latest deals and
                           special offers, you can sign up for the company's
@@ -653,7 +863,7 @@ const OverviewMainSection = () => {
               </h3>
               <button
                 onClick={() => setShowDetails(!showDetails)}
-                className="text-yellow-600 font-medium text-sm"
+                className="text-yellow-600 font-medium text-sm cursor-pointer"
               >
                 {showDetails ? "Hide Details" : "Show Details"}
               </button>
@@ -667,40 +877,11 @@ const OverviewMainSection = () => {
                   <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Check-in Date
+                        Departure Location
                       </label>
                       <input
-                        type="date"
-                        className="w-full border rounded-md p-2 text-gray-700"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Check-in Time
-                      </label>
-                      <input
-                        type="time"
-                        className="w-full border rounded-md p-2 text-gray-700"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-3 sm:space-y-0">
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Check-out Date
-                      </label>
-                      <input
-                        type="date"
-                        className="w-full border rounded-md p-2 text-gray-700"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Check-out Time
-                      </label>
-                      <input
-                        type="time"
+                        type="text"
+                        placeholder="enter your departure location..."
                         className="w-full border rounded-md p-2 text-gray-700"
                       />
                     </div>
@@ -726,12 +907,14 @@ const OverviewMainSection = () => {
             <div className="bg-white shadow-md px-4 py-3 flex items-center justify-between">
               <div className="text-xl font-bold text-gray-600">
                 Price
-                <span className="text-2xl text-gray-800"> $120</span>
-                <span className="text-xl text-gray-600">/night</span>
+                <span className="text-2xl text-gray-800"> $1200</span>
+                <span className="text-sm text-gray-500">/night</span>
               </div>
-              <button className="bg-yellow-600 hover:bg-yellow-400 text-black font-medium px-4 py-2 rounded-xl transition duration-200 cursor-pointer">
-                Book Now
-              </button>
+              <RouterLink to="/bookingForm">
+                <button className="bg-yellow-600 hover:bg-yellow-400 text-black font-medium px-4 py-2 rounded-xl transition duration-200 cursor-pointer">
+                  Book Now
+                </button>
+              </RouterLink>
             </div>
           </div>
 
@@ -744,9 +927,7 @@ const OverviewMainSection = () => {
               </h2>
 
               {/* Check-in and Check-out Date & Time */}
-              <div className="space-y-2">
-               
-              </div>
+              <div className="space-y-2"></div>
 
               {/* Total Number of Persons */}
               <div>
@@ -776,16 +957,18 @@ const OverviewMainSection = () => {
               {/* Price Row */}
               <h1 className="text-lg font-bold">Price</h1>
               <div className="text-4xl font-semibold text-gray-800">
-                $120{" "}
+                $1200{" "}
                 <span className="text-base font-normal text-gray-500">
                   / night
                 </span>
               </div>
 
               {/* Book Now Button Row */}
-              <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
-                Book Now
-              </button>
+              <RouterLink to="/bookingForm">
+                <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
+                  Book Now
+                </button>
+              </RouterLink>
             </div>
           </div>
         </div>
