@@ -18,7 +18,7 @@ const SimilarTripSection = () => {
     id: i + 1,
     title: `Card Title ${i + 1}`,
     description: "Explore the best places in town with our top-rated guides.",
-    imageUrl: "//assets/images/touriest/guide-1.webp",
+    imageUrl: "/assets/images/touriest/guide-1.webp",
     rating: 4,
     price: 49,
   }));

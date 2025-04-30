@@ -25,6 +25,7 @@ import {
 } from "react-icons/fa";
 
 const OverviewMainSection = () => {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [showDetails, setShowDetails] = useState(false);
   const cardGridRef1 = useRef(null); // Reference to the first grid for programmatic scrolling
   const [pickupLocation, setPickupLocation] = useState("Bangkok");
@@ -50,8 +51,10 @@ const OverviewMainSection = () => {
   const [saved, setSaved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeDays, setActiveDays] = useState([]);
+  
+
   useEffect(() => {
-    fetch(`http://localhost:8000/api/packages/${slug}/`)
+    fetch(`${baseUrl}/api/packages/${slug}/`)
       .then((res) => res.json())
       .then((data) => setPackageData(data))
       .catch((err) => console.error("Error fetching package:", err));
@@ -118,7 +121,6 @@ const OverviewMainSection = () => {
         "We may offer discounts or promotions from time to time. To stay up-to-date on the latest deals and special offers, you can sign up for the company's newsletter or follow it on social media.",
     },
   ];
-  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const imageUrls = packageData.similar_images;
 

@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup"; // Adjust the path as needed
 import { v4 as uuidv4 } from 'uuid';
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 export default function Headers() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -18,7 +20,7 @@ export default function Headers() {
   const [subMenus, setSubMenus] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/sub_menus/")
+    fetch(`${baseUrl}/api/sub_menus/`)
       .then((res) => res.json())
       .then((data) => {
         setMenus(data.menus);
