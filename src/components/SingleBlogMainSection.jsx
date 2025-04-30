@@ -18,7 +18,7 @@ const SingleBlogMainSection = () => {
     id: i + 1,
     title: `Card Title ${i + 1}`,
     description: "Explore the best places in town with our top-rated guides.",
-    imageUrl: "src/assets/images/touriest/guide-1.webp",
+    imageUrl: "/assets/images/touriest/guide-1.webp",
     rating: 4,
     price: 49,
   }));
@@ -41,7 +41,7 @@ const SingleBlogMainSection = () => {
         <div className="w-[95%] lg:w-[80%] bg-white mx-auto">
           {/* Top Background Section */}
           <img
-            src="/src/assets/images/instagram/insta-4.webp"
+            src="//assets/images/instagram/insta-4.webp"
             alt="Header"
             className="w-full h-100 rounded-md object-cover"
           />
@@ -69,7 +69,7 @@ const SingleBlogMainSection = () => {
               {/* Author Info */}
               <div className="mt-2 flex items-center text-gray-600 text-sm md:text-base space-x-2">
                 <img
-                  src="/src/assets/images/instagram/insta-3.webp"
+                  src="//assets/images/instagram/insta-3.webp"
                   alt="Author"
                   className="w-12 h-12 rounded-full object-cover"
                 />
@@ -164,7 +164,7 @@ const SingleBlogMainSection = () => {
 
               {/* Image after blockquote */}
               <img
-                src="/src/assets/images/packages/p1-3.webp"
+                src="//assets/images/packages/p1-3.webp"
                 alt="Steve Irwin"
                 className="w-full h-auto mt-2 rounded-md shadow-md"
               />
@@ -194,7 +194,7 @@ const SingleBlogMainSection = () => {
                       className="flex space-x-2 bg-white p-2 border border-gray-200 rounded shadow-sm"
                     >
                       <img
-                        src={`/src/assets/images/touriest/guide-${
+                        src={`//assets/images/touriest/guide-${
                           index + 1
                         }.webp`}
                         alt="Post Thumbnail"

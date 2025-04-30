@@ -20,7 +20,7 @@ export default function Background() {
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
         <source
-          src="src/assets/images/backgrounds/videoplayback.webm"
+          src="/assets/images/backgrounds/videoplayback.webm"
           type="video/webm"
         />
         Your browser does not support the video tag.

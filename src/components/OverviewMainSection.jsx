@@ -13,7 +13,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// import imageUrl from "/src/assets/images/srilankabanner.jpg";
+// import imageUrl from "//assets/images/srilankabanner.jpg";
 import { MapPin, Clock } from "lucide-react";
 import { Link } from "react-scroll";
 import { Link as RouterLink, useParams } from "react-router-dom";

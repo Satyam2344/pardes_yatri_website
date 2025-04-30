@@ -22,19 +22,19 @@ const MainSection = () => {
       name: "Lucia",
       quote:
         "Travel isn’t always pretty. It isn’t always comfortable. Sometimes it hurts, it even breaks your heart. But that’s okay. The journey changes you — it should change you.",
-      image: "src/assets/images/touriest/guide-3.webp",
+      image: "/assets/images/touriest/guide-3.webp",
     },
     {
       name: "Carlos",
       quote:
         "The world is a book, and those who do not travel read only one page.",
-      image: "src/assets/images/touriest/guide-1.webp",
+      image: "/assets/images/touriest/guide-1.webp",
     },
     {
       name: "Aisha",
       quote:
         "To travel is to discover that everyone is wrong about other countries.",
-      image: "src/assets/images/touriest/guide-2.webp",
+      image: "/assets/images/touriest/guide-2.webp",
     },
   ];
 
@@ -54,20 +54,20 @@ const MainSection = () => {
     id: i + 1,
     title: `Card Title ${i + 1}`,
     description: "Explore the best places in town with our top-rated guides.",
-    imageUrl: "src/assets/images/touriest/guide-1.webp",
+    imageUrl: "/assets/images/touriest/guide-1.webp",
     rating: 4,
     price: 49,
   }));
 
   const items = Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
-    image: `src/assets/images/packages/p2-3.webp`,
+    image: `/assets/images/packages/p2-3.webp`,
     title: `Image Title ${i + 1}`,
   }));
 
   const items1 = Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
-    image: `src/assets/images/packages/p2-4.webp`,
+    image: `/assets/images/packages/p2-4.webp`,
     title: `Image Title ${i + 1}`,
   }));
 
@@ -80,18 +80,18 @@ const MainSection = () => {
   };
 
   const cities = [
-    { id: 1, title: "Paris", image: "src/assets/images/packages/p1-8.webp" },
-    { id: 2, title: "Tokyo", image: "src/assets/images/packages/s2.webp" },
-    { id: 3, title: "New York", image: "src/assets/images/packages/sl5.webp" },
-    { id: 4, title: "Dubai", image: "src/assets/images/packages/sl3.webp" },
-    { id: 5, title: "Sydney", image: "src/assets/images/packages/sl4.webp" },
-    { id: 6, title: "Rome", image: "src/assets/images/packages/p2-2.webp" },
-    { id: 7, title: "London", image: "src/assets/images/packages/sl2.webp" },
+    { id: 1, title: "Paris", image: "/assets/images/packages/p1-8.webp" },
+    { id: 2, title: "Tokyo", image: "/assets/images/packages/s2.webp" },
+    { id: 3, title: "New York", image: "/assets/images/packages/sl5.webp" },
+    { id: 4, title: "Dubai", image: "/assets/images/packages/sl3.webp" },
+    { id: 5, title: "Sydney", image: "/assets/images/packages/sl4.webp" },
+    { id: 6, title: "Rome", image: "/assets/images/packages/p2-2.webp" },
+    { id: 7, title: "London", image: "/assets/images/packages/sl2.webp" },
   ];
 
   const flowers = Array.from({ length: 7 }, (_, i) => ({
     id: i + 1,
-    image: `src/assets/images/packages/p4-2.webp`,
+    image: `/assets/images/packages/p4-2.webp`,
     title: `Image Title ${i + 1}`,
   }));
 
@@ -311,22 +311,22 @@ const MainSection = () => {
                   {
                     title: "Beach Holidays",
                     desc: "Relax by the sea with sunny escapes.",
-                    img: "src/assets/images/gallary/v4.webp",
+                    img: "/assets/images/gallary/v4.webp",
                   },
                   {
                     title: "Mountain Treks",
                     desc: "Adventure awaits in the highlands.",
-                    img: "src/assets/images/gallary/v3.webp",
+                    img: "/assets/images/gallary/v3.webp",
                   },
                   {
                     title: "City Breaks",
                     desc: "Explore vibrant city life and culture.",
-                    img: "src/assets/images/gallary/g4.webp",
+                    img: "/assets/images/gallary/g4.webp",
                   },
                   {
                     title: "Wildlife Tours",
                     desc: "Get close to nature and exotic animals.",
-                    img: "src/assets/images/gallary/g5.webp",
+                    img: "/assets/images/gallary/g5.webp",
                   },
                 ].map((box, index) => (
                   <div
@@ -502,7 +502,7 @@ const MainSection = () => {
                     muted
                     playsInline
                     className="w-full h-full object-cover rounded"
-                    src="src/assets/images/smallVideo.mp4" // Replace this with the actual path of your video
+                    src="/assets/images/smallVideo.mp4" // Replace this with the actual path of your video
                     type="video/mp4"
                   />
                   {/* Button on Video */}

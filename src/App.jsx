@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import "./assets/fonts/fonts.css";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login"; // Adjust the path as needed

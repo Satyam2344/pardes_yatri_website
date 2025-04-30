@@ -122,7 +122,7 @@ const Footer = () => {
             {/* Location */}
             <div className="flex items-start gap-2 mb-2">
               <img
-                src="/src/assets/images/others/location.png"
+                src="/assets/images/others/location.png"
                 alt="Location"
                 className="w-6 h-6"
               />
@@ -135,7 +135,7 @@ const Footer = () => {
             {/* Phone */}
             <div className="flex items-center gap-2">
               <img
-                src="/src/assets/images/others/phone.png"
+                src="/assets/images/others/phone.png"
                 alt="Phone"
                 className="w-5 h-5"
               />
@@ -150,7 +150,7 @@ const Footer = () => {
               {/* Facebook */}
               <a href="#" className="hover:text-blue-400">
                 <img
-                  src="/src/assets/images/social_media/facebook.png"
+                  src="/assets/images/social_media/facebook.png"
                   alt="Facebook"
                   className="w-6 h-6 hover:opacity-70 transition"
                 />
@@ -159,7 +159,7 @@ const Footer = () => {
               {/* Twitter */}
               <a href="#" className="hover:text-blue-500">
                 <img
-                  src="/src/assets/images/social_media/twitter.png"
+                  src="/assets/images/social_media/twitter.png"
                   alt="Twitter"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -168,7 +168,7 @@ const Footer = () => {
               {/* Generic Social */}
               <a href="#" className="hover:text-pink-500">
                 <img
-                  src="/src/assets/images/social_media/social.png"
+                  src="/assets/images/social_media/social.png"
                   alt="Social"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -177,7 +177,7 @@ const Footer = () => {
               {/* Instagram */}
               <a href="#" className="hover:text-pink-600">
                 <img
-                  src="/src/assets/images/social_media/instagram.png"
+                  src="/assets/images/social_media/instagram.png"
                   alt="Instagram"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -189,7 +189,7 @@ const Footer = () => {
                 className="hover:text-red-600"
               >
                 <img
-                  src="/src/assets/images/social_media/gmail.png"
+                  src="/assets/images/social_media/gmail.png"
                   alt="Gmail"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -203,7 +203,7 @@ const Footer = () => {
                 className="hover:text-blue-700"
               >
                 <img
-                  src="/src/assets/images/social_media/linkedin.png"
+                  src="/assets/images/social_media/linkedin.png"
                   alt="LinkedIn"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -217,7 +217,7 @@ const Footer = () => {
                 className="hover:text-blue-400"
               >
                 <img
-                  src="/src/assets/images/social_media/telegram.png"
+                  src="/assets/images/social_media/telegram.png"
                   alt="Telegram"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />
@@ -231,7 +231,7 @@ const Footer = () => {
                 className="hover:text-orange-500"
               >
                 <img
-                  src="/src/assets/images/social_media/reddit.png"
+                  src="/assets/images/social_media/reddit.png"
                   alt="Reddit"
                   className="w-7 h-7 hover:opacity-70 transition"
                 />

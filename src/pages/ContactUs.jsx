@@ -3,7 +3,7 @@ import Headers from "../components/Headers";
 import Footer from "../components/Footer";
 import ContactMainSection from "../components/ContactMainSection";
 import Commonbg from "../components/Commonbg";
-import bgImage from "/src/assets/images/backgrounds/contact2.jpg";
+import bgImage from "/assets/images/backgrounds/contact2.jpg";
 const ContactUs = () => {
   return (
     <div>

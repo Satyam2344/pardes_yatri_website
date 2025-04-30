@@ -39,7 +39,7 @@ export default function Headers() {
         <div className="text-xl font-bold text-indigo-600 flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/src/assets/images/logo3.png"
+              src="/assets/images/logo3.png"
               alt="Logo"
               className="w-20 md:w-32 lg:w-20 h-16 md:h-20 lg:h-16 object-contain"
             />

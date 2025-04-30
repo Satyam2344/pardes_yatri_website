@@ -3,7 +3,7 @@ import Headers from "../components/Headers";
 import Footer from "../components/Footer";
 import SinglePackageMainSection from "../components/SinglePackageMainSection";
 import Commonbg from "../components/Commonbg";
-// import bgImage from "/src/assets/images/srilankabanner.jpg";
+// import bgImage from "//assets/images/srilankabanner.jpg";
 import ContactForm from "../components/ContactForm";
 import { useLocation } from 'react-router-dom';
 const SinglePackage = () => {
