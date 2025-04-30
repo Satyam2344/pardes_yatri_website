@@ -13,6 +13,8 @@ import SinglePackage from "./pages/SinglePackage";
 import Overview from "./pages/Overview";
 import SelectionPage from "./pages/SelectionPage";
 import BookingForm from "./pages/BookingForm";
+import SimilarTrip from "./pages/SimilarTrip";
+import FetchPage from "./pages/fetchPage";
 
 function App() {
   return (
@@ -26,10 +28,12 @@ function App() {
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/bloging" element={<SingleBlog />} />
-          <Route path="/packages/srilanka" element={<SinglePackage />} />
-          <Route path="/packages/srilanka/details" element={<Overview />} />
+          <Route path="/packages/:slug" element={<SinglePackage />} />
+          <Route path="/packages/:slug/details" element={<Overview />} />
           <Route path="/selectdestination" element={<SelectionPage />} />
           <Route path="/bookingForm" element={<BookingForm />} />
+          <Route path="/similarTrips" element={<SimilarTrip />} />
+          <Route path="/FetchPage" element={<FetchPage />} />
         </Routes>
       </Router>
     </>

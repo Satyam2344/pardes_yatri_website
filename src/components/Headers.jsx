@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup"; // Adjust the path as needed
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Headers() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,7 +14,23 @@ export default function Headers() {
   const servicesTimeout = useRef(null);
   const destinationsTimeout = useRef(null);
 
-  const menuItems = ["International Tour Packages", "Domestic Tour Packages"];
+  const [menus, setMenus] = useState([]);
+  const [subMenus, setSubMenus] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/sub_menus/")
+      .then((res) => res.json())
+      .then((data) => {
+        setMenus(data.menus);
+        setSubMenus(data.subMenus);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
+
+  const getSubMenus = (menuName) => {
+    if (!Array.isArray(subMenus)) return [];
+    return subMenus.filter((sub) => sub.main_menu === menuName);
+  };
 
   return (
     <header className="bg-yellow-500 fixed top-0 left-0 w-full z-50 ">
@@ -34,11 +51,11 @@ export default function Headers() {
 
         {/* Navigation */}
         <nav className="hidden md:flex space-x-18">
-          {menuItems.map((item) => {
-            if (item === "International Tour Packages") {
-              return (
+          {menus.map((menu) => (
+            <React.Fragment key={menu._id}>
+              {/* Left Menu */}
+              {menu.left_menu && (
                 <div
-                  key={item}
                   className="relative"
                   onMouseEnter={() => {
                     clearTimeout(servicesTimeout.current);
@@ -47,14 +64,14 @@ export default function Headers() {
                   onMouseLeave={() => {
                     servicesTimeout.current = setTimeout(() => {
                       setIsServicesOpen(false);
-                    }, 200); // Delay to prevent flickering
+                    }, 200);
                   }}
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-lg"
+                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
                   >
-                    <span>{item}</span>
+                    <span>{menu.left_menu}</span>
                     {isServicesOpen ? (
                       <FaChevronUp className="w-3 h-3" />
                     ) : (
@@ -64,34 +81,24 @@ export default function Headers() {
 
                   {isServicesOpen && (
                     <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-xl-md py-2 z-10">
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        Srilanka
-                      </Link>
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        United States Tour Package
-                      </Link>
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        Europe Tour Package
-                      </Link>
+                      {getSubMenus(menu.left_menu).map((sub) => (
+                        <Link
+                          key={crypto.randomUUID()} 
+                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                          state={{ imageUrl: sub.image_url }}
+                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                        >
+                          {sub.sub_menu}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
-              );
-            }
+              )}
 
-            if (item === "Domestic Tour Packages") {
-              return (
+              {/* Right Menu */}
+              {menu.right_menu && (
                 <div
-                  key={item}
                   className="relative"
                   onMouseEnter={() => {
                     clearTimeout(destinationsTimeout.current);
@@ -105,9 +112,9 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-lg"
+                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
                   >
-                    <span>{item}</span>
+                    <span>{menu.right_menu}</span>
                     {isDestinationsOpen ? (
                       <FaChevronUp className="w-3 h-3" />
                     ) : (
@@ -117,46 +124,22 @@ export default function Headers() {
 
                   {isDestinationsOpen && (
                     <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-xl-md py-2 z-10">
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        Srilanka Tour Package
-                      </Link>
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        United States Tour Package
-                      </Link>
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        Europe Tour Package
-                      </Link>
-                      <Link
-                        to="/packages/srilanka"
-                        className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
-                      >
-                        Middle East Asia Tour Package
-                      </Link>
+                      {getSubMenus(menu.right_menu).map((sub) => (
+                        <Link
+                          key={crypto.randomUUID()} 
+                          state={{ imageUrl: sub.image_url }}
+                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                        >
+                          {sub.sub_menu}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
-              );
-            }
-
-            return (
-              <a
-                key={item}
-                href="#"
-                className="text-gray-700 hover:text-indigo-700 font-medium"
-              >
-                {item}
-              </a>
-            );
-          })}
+              )}
+            </React.Fragment>
+          ))}
         </nav>
 
         {/* Auth Buttons + Contact Info */}
@@ -214,72 +197,65 @@ export default function Headers() {
 
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow px-4 pt-2 pb-4 space-y-2">
-          {menuItems.map((item) => {
-            const isActive = activeMobileDropdown === item;
+          {Object.entries(menus).map(([key, mainMenu], index) => {
+            const isLeftMenuActive =
+              activeMobileDropdown === mainMenu.left_menu;
+            const isRightMenuActive =
+              activeMobileDropdown === mainMenu.right_menu;
 
             return (
-              <div key={item} className="space-y-1">
+              <div key={index} className="space-y-1">
+                {/* Left Menu Button */}
                 <button
                   onClick={() =>
-                    setActiveMobileDropdown(isActive ? null : item)
+                    setActiveMobileDropdown(
+                      isLeftMenuActive ? null : mainMenu.left_menu
+                    )
+                  }
+                  className="block w-full text-left text-gray-700 font-semibold hover:text-blue-800 cursor-pointer"
+                >
+                  {mainMenu.left_menu}
+                </button>
+
+                {isLeftMenuActive && (
+                  <div className="ml-4 space-y-1 text-sm font-medium text-gray-600">
+                    {getSubMenus(mainMenu.left_menu).map((sub) => (
+                      <Link
+                        key={crypto.randomUUID()} 
+                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                        state={{ imageUrl: sub.image_url }}
+                        className="block hover:text-indigo-500"
+                      >
+                        {sub.sub_menu}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {/* Right Menu Button */}
+                <button
+                  onClick={() =>
+                    setActiveMobileDropdown(
+                      isRightMenuActive ? null : mainMenu.right_menu
+                    )
                   }
                   className="block w-full text-left text-gray-700 font-semibold hover:text-blue-800"
                 >
-                  {item}
+                  {mainMenu.right_menu}
                 </button>
 
-                {isActive && (
-                  <div className="ml-4 space-y-1 text-sm font-medium text-gray-600 hover:text-yellow-800">
-                    {item === "Explore Destinations" && (
-                      <>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          Srilanka
-                        </Link>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          United States
-                        </Link>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          Europe
-                        </Link>
-                      </>
-                    )}
-                    {item === "Holiday Tour Packages" && (
-                      <>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          Srilanka Tour
-                        </Link>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          United States
-                        </Link>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          Europe
-                        </Link>
-                        <Link
-                          to="/packages/srilanka"
-                          className="block hover:text-indigo-500"
-                        >
-                          Middle East Asia
-                        </Link>
-                      </>
-                    )}
+                {isRightMenuActive && (
+                  <div className="ml-4 space-y-1 text-sm font-medium text-gray-600">
+                    {getSubMenus(mainMenu.right_menu).map((sub) => (
+                      <Link
+                        key={crypto.randomUUID()} 
+                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                        state={{ imageUrl: sub.image_url }}
+                        className="block hover:text-indigo-500"
+                      >
+                        {sub.sub_menu}
+                      </Link>
+                    ))}
                   </div>
                 )}
               </div>
@@ -287,6 +263,7 @@ export default function Headers() {
           })}
 
           <hr className="my-2" />
+
           <Link to="/login">
             <button className="block w-[25%] text-center border rounded-lg py-2 hover:bg-yellow-200 text-gray-700 hover:text-indigo-600">
               Login

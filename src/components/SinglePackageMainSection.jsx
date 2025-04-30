@@ -5,9 +5,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SinglePackageMainSection = () => {
+  const { slug } = useParams();
+  const [packageData, setPackageData] = useState(null);
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    fetch(`${baseUrl}/api/packages/${slug}/`)
+      .then((res) => res.json())
+      .then((data) => setPackageData(data))
+      .catch((err) => console.error("Error fetching package:", err));
+  }, [slug]);
+
+  // If packageData is null or still loading, display a loading message.
+  if (!packageData) return <p>Loading package...</p>;
+
   const budgetOptions = [
     "Under ₹10,000",
     "₹10,000 - ₹20,000",
@@ -55,11 +69,13 @@ const SinglePackageMainSection = () => {
     </svg>
   );
 
-  const [showMore, setShowMore] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
+  // const [showMore, setShowMore] = useState(false);
+  // const [showFilters, setShowFilters] = useState(false);
 
-  const [showMoreStates, setShowMoreStates] = useState(Array(5).fill(false));
-
+  //  const [showMoreStates, setShowMoreStates] = useState(Array(5).fill(false));
+  const formatSlug = (text) => {
+    return text.toLowerCase().replace(/\s+/g, ""); // removes all spaces
+  };
   const toggleShowMore = (index) => {
     setShowMoreStates((prev) =>
       prev.map((val, i) => (i === index ? !val : val))
@@ -67,57 +83,48 @@ const SinglePackageMainSection = () => {
   };
 
   const cards = [];
-  for (let i = 0; i < 5; i++) {
-    cards.push(
-      <div
-        key={i}
-        className="w-full h-full lg:w-full bg-gray-50 p-4 rounded space-y-4"
-      >
-        {/* Main Card */}
-        <div className="w-full h-full bg-white rounded shadow-md overflow-hidden flex flex-col md:flex-row">
-          {/* Image Section */}
-          <div className="md:w-1/2 h-100 md:h-auto relative">
-            {/* Premium Sticker */}
-            <div className="absolute top-2 left-2 bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-full shadow-md z-10 cursor-pointer">
-              Premium
-            </div>
-            <img
-              src="/src/assets/images/classic-banner.jpg"
-              alt="Card"
-              className="object-cover w-full h-full hover:scale-105 transition-transform duration-300 ease-in-out"
-            />
+  cards.push(
+    <div className="w-full h-full lg:w-full bg-gray-50 p-4 rounded space-y-4">
+      {/* Main Card */}
+      <div className="w-full h-full bg-white rounded shadow-md overflow-hidden flex flex-col md:flex-row">
+        {/* Image Section */}
+        <div className="md:w-1/2 h-100 md:h-auto relative">
+          {/* Premium Sticker */}
+          <div className="absolute top-2 left-2 bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-full shadow-md z-10 cursor-pointer">
+            Premium
           </div>
+          <img
+            src={`${baseUrl}/${packageData.image_url}`}
+            alt="Card"
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
+            style={{ imageRendering: 'auto' }}
+          />
+        </div>
 
-          {/* Description Section */}
-          <div className="md:w-1/2 p-4 flex flex-col justify-between bg-white shadow-lg rounded-lg">
-            <div>
-              {/* Title and Description */}
-              <h2 className="text-xl font-bold text-gray-800 mb-2">
-                Tropical Paradise
-              </h2>
-              <p className="text-gray-600 text-sm mb-4">
-                Discover the breathtaking views and serene landscapes in this
-                all-inclusive travel experience.
-              </p>
+        {/* Description Section */}
+        <div className="md:w-1/2 p-4 flex flex-col justify-between bg-white shadow-lg rounded-lg">
+          <div>
+            {/* Title and Description */}
+            <h2 className="text-xl font-bold text-gray-800 mb-2">
+              {packageData.heading}
+            </h2>
+            <p className="text-gray-600 text-sm mb-4">
+              {packageData.description}
+            </p>
 
-              {/* Price Section */}
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-2xl font-semibold text-amber-950">
-                  ₹35,000
-                </span>
-                <span className="text-sm text-gray-500">per person</span>
-              </div>
+            {/* Price Section */}
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-2xl font-semibold text-amber-950">
+                $ {packageData.price}
+              </span>
+              <span className="text-sm text-gray-500">per person</span>
+            </div>
 
-              {/* Features Section */}
-              <div className="space-y-2 mb-4">
-                {[
-                  "24x7 Concierge Service",
-                  "All-Inclusive",
-                  "Exclusive Locations",
-                  "Private Transfers",
-                  "Exclusive Resorts",
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-2">
+            {/* Features Section */}
+            <div className="space-y-2 mb-4">
+              {packageData.features && packageData.features.length > 0 ? (
+                packageData.features.map((feature, index) => (
+                  <div key={index} className="flex items-start space-x-2">
                     <svg
                       className="w-5 h-5 text-amber-950"
                       viewBox="0 0 20 20"
@@ -131,42 +138,46 @@ const SinglePackageMainSection = () => {
                     </svg>
                     <span className="text-sm text-gray-700">{feature}</span>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No features available.</p>
+              )}
+            </div>
 
-              {/* Ratings */}
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex text-amber-500">
-                  {[...Array(4)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className="w-5 h-5 fill-current"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z" />
-                    </svg>
-                  ))}
-                  <svg className="w-5 h-5 text-gray-300" viewBox="0 0 20 20">
+            {/* Ratings */}
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="flex text-amber-500">
+                {[...Array(5)].map((_, i) => (
+                  <svg
+                    key={i}
+                    className={`w-5 h-5 fill-current ${
+                      i < packageData.ratings
+                        ? "text-amber-500"
+                        : "text-gray-300"
+                    }`}
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.562-.955L10 0l2.95 5.955 6.562.955-4.756 4.635 1.122 6.545z" />
                   </svg>
-                </div>
-                <span className="text-sm text-gray-600">
-                  (4.0 from 1.2k reviews)
-                </span>
+                ))}
               </div>
-
-              {/* Read More Button */}
-              <Link to="/packages/srilanka/details">
-                <button className="w-full py-2 bg-amber-950 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 transition cursor-pointer">
-                  Read More
-                </button>
-              </Link>
+              <span className="text-sm text-gray-600">
+                ({packageData.ratings}.0 from 1.2k reviews)
+              </span>
             </div>
+
+            {/* Read More Button */}
+            <Link to={`/packages/${formatSlug(packageData.sub_menu)}/details`}>
+              <button className="w-full py-2 bg-amber-950 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 transition cursor-pointer">
+                Read More
+              </button>
+            </Link>
           </div>
         </div>
+      </div>
 
-        {/* Read More Toggle */}
-        <div className="w-full">
+      {/* Read More Toggle */}
+      {/* <div className="w-full">
           <button
             onClick={() => toggleShowMore(i)}
             className="text-amber-950 font-semibold underline hover:text-amber-700 transition"
@@ -200,10 +211,10 @@ const SinglePackageMainSection = () => {
               </ul>
             </div>
           )}
-        </div>
-      </div>
-    );
-  }
+        </div> */}
+    </div>
+  );
+
   return (
     <>
       <div className="w-full bg-black  lg:mt-2 md:mt-0 sm:mt-0 flex justify-center items-center p-4">
@@ -260,17 +271,17 @@ const SinglePackageMainSection = () => {
                 <span className="hover:underline cursor-pointer">Home</span>
                 <span className="ml-2">{">"}</span>
                 <span className="hover:underline cursor-pointer ml-2">
-                  Packages
+                  {packageData.main_menu}
                 </span>
                 <span className="ml-2">{">"}</span>
                 <span className="text-amber-950 font-semibold ml-2">
-                  Sri Lanka
+                  {packageData.sub_menu}
                 </span>
               </nav>
             </div>
             <div className="w-full bg-gray-300 rounded-lg text-left mt-2 mb-4 p-6 sm:p-4 md:p-5 min-h-[80px]">
               <p className="text-3xl text-black font-bold sm:text-xl md:text-2xl">
-                Sri Lanka Holiday Tour Packages
+                {packageData.sub_menu}
               </p>
             </div>
 
