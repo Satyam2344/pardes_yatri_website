@@ -180,7 +180,7 @@ const OverviewMainSection = () => {
 
               {/* Dynamic Image */}
               <img
-                src={`${baseUrl}/${packageData.image_url}`}
+                src={`${baseUrl}${packageData.image_url}`}
                 alt="Dynamic"
                 className="w-full h-[500px] max-w-full mx-auto my-4 object-cover"
               />
@@ -448,7 +448,7 @@ const OverviewMainSection = () => {
                     <img
                       key={index}
                       className="hover:opacity-75 rounded-2xl w-72 h-48 object-cover"
-                      src={`${baseUrl}/${image}`}
+                      src={`${baseUrl}${image}`}
                       alt={`Gallery Image ${index + 1}`}
                     />
                   ))}
