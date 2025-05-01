@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 const BookingFormMainSection = () => {
   const location = useLocation();
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -92,6 +94,8 @@ const BookingFormMainSection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setSubmitted(false);
 
     try {
       const response = await fetch(`${baseUrl}/api/submit-booking/`, {
@@ -105,14 +109,18 @@ const BookingFormMainSection = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Booking submitted successfully!");
-        navigate(-1); // Redirect after success
+        setSubmitted(true); // Show success message
+        setTimeout(() => {
+          navigate(-1); // Go back after 1.5 seconds
+        }, 1500);
       } else {
         alert("Submission failed: " + result.error);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred while submitting the form.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -202,6 +210,50 @@ const BookingFormMainSection = () => {
           Cancel
         </button>
       </div>
+
+      {(loading || submitted) && (
+        <div className="absolute inset-0 bg-white bg-opacity-80 flex flex-col items-center justify-center z-50 rounded-2xl">
+          {loading && (
+            <>
+              <svg
+                className="animate-spin h-8 w-8 text-yellow-500 mb-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+              <p className="text-gray-700 text-lg font-medium">
+                Please wait...
+              </p>
+            </>
+          )}
+          {submitted && (
+            <div className="text-center">
+              <img
+                src="/assets/images/Check animation.gif"
+                alt="Success Animation"
+                className="w-40 h-32 mx-auto mb-2"
+              />
+              <p className="text-green-600 text-3xl font-semibold">
+                Submitted successfully!
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

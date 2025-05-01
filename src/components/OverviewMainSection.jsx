@@ -51,7 +51,6 @@ const OverviewMainSection = () => {
   const [saved, setSaved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeDays, setActiveDays] = useState([]);
-  
 
   useEffect(() => {
     fetch(`${baseUrl}/api/packages/${slug}/`)
@@ -302,14 +301,20 @@ const OverviewMainSection = () => {
                     return (
                       <div
                         key={index}
-                        className={`rounded-xl shadow-sm p-4 border-0 border-gray-200 ${
+                        className={`rounded-xl shadow-sm p-6 border-0 border-gray-200 ${
                           activeDays.includes(day)
                             ? "bg-blue-50"
                             : "bg-yellow-50"
                         }`}
                       >
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center">
+                        <div
+                          className="flex justify-between items-center cursor-pointer"
+                          onClick={() => toggleDescription(day)}
+                        >
+                          <div
+                            className="flex items-center"
+                            onClick={() => toggleDescription(day)}
+                          >
                             <div className="text-lg font-semibold text-blue-600">
                               Day {day}
                             </div>
@@ -319,7 +324,7 @@ const OverviewMainSection = () => {
                           </div>
                           <button
                             className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 focus:outline-none flex items-center cursor-pointer"
-                            onClick={() => toggleDescription(day)}
+                            onClick={(e) => e.stopPropagation()} // Prevent triggering the parent click
                           >
                             {activeDays.includes(day) ? (
                               <FaChevronUp className="w-5 h-5 text-gray-400" />
@@ -515,9 +520,13 @@ const OverviewMainSection = () => {
 
               {/* Buttons in vertical stack */}
               <div className="flex flex-col space-y-2">
-                <RouterLink to={`/bookingForm?sub_menu=${encodeURIComponent(packageData.sub_menu)}&heading=${encodeURIComponent(packageData.heading)}`}>
+                <RouterLink
+                  to={`/bookingForm?sub_menu=${encodeURIComponent(
+                    packageData.sub_menu
+                  )}&heading=${encodeURIComponent(packageData.heading)}`}
+                >
                   <button className="w-full bg-yellow-600 hover:bg-yellow-400 text-black font-medium py-2 px-4 rounded-xl transition duration-200">
-                   Get Your Quote
+                    Get Your Quote
                   </button>
                 </RouterLink>
 
@@ -551,7 +560,11 @@ const OverviewMainSection = () => {
               {/* Book Now Button Row */}
               {/* Book Now and Download Itinerary Buttons */}
               <div className="flex flex-col space-y-2">
-              <RouterLink to={`/bookingForm?sub_menu=${encodeURIComponent(packageData.sub_menu)}&heading=${encodeURIComponent(packageData.heading)}`}>
+                <RouterLink
+                  to={`/bookingForm?sub_menu=${encodeURIComponent(
+                    packageData.sub_menu
+                  )}&heading=${encodeURIComponent(packageData.heading)}`}
+                >
                   <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
                     Get Your Quote
                   </button>
