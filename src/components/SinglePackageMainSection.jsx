@@ -115,7 +115,7 @@ const SinglePackageMainSection = () => {
             {/* Price Section */}
             <div className="flex justify-between items-center mb-4">
               <span className="text-2xl font-semibold text-amber-950">
-                $ {packageData.price}
+              ₹{packageData.price}
               </span>
               <span className="text-sm text-gray-500">per person</span>
             </div>
