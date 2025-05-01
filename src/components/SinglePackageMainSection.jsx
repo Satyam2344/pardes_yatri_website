@@ -94,7 +94,7 @@ const SinglePackageMainSection = () => {
             Premium
           </div>
           <img
-            src={`${baseUrl}/${packageData.image_url}`}
+            src={`${baseUrl}${packageData.image_url}`}
             alt="Card"
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             style={{ imageRendering: 'auto' }}
