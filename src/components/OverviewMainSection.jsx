@@ -53,7 +53,7 @@ const OverviewMainSection = () => {
   const [activeDays, setActiveDays] = useState([]);
 
   useEffect(() => {
-    fetch(`${baseUrl}/api/packages/${slug}/`)
+    fetch(`${baseUrl}/api/get_package/${slug}/`)
       .then((res) => res.json())
       .then((data) => setPackageData(data))
       .catch((err) => console.error("Error fetching package:", err));
@@ -525,18 +525,28 @@ const OverviewMainSection = () => {
                     packageData.sub_menu
                   )}&heading=${encodeURIComponent(packageData.heading)}`}
                 >
-                  <button className="w-full bg-yellow-600 hover:bg-yellow-400 text-black font-medium py-2 px-4 rounded-xl transition duration-200">
-                    Get Your Quote
+                  <button className="w-full bg-yellow-400 hover:bg-yellow-600 shadow-amber-400 text-black font-medium py-2 px-4 rounded-xl transition duration-200">
+                    Get Quotes
                   </button>
                 </RouterLink>
 
                 <a
                   href="#"
                   download
-                  className="w-full text-center bg-indigo-300 hover:bg-indigo-500 text-gray-800 font-medium py-2 px-4 rounded-xl transition duration-200"
+                  className="w-full text-center bg-blue-600 hover:bg-indigo-400 shadow-blue-500 shadow-blue-500 text-white font-medium py-2 px-4 rounded-xl transition duration-200"
                 >
                   Download Itinerary
                 </a>
+                {/* {console.log("Main Menu Name:", packageData.main_menu)} */}
+
+                {/* Pay Now (Only if Trekking) */}
+                {packageData.main_menu
+                  ?.toLowerCase()
+                  .includes("trekking") && (
+                  <button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-xl transition duration-200">
+                    Pay Now
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -565,18 +575,27 @@ const OverviewMainSection = () => {
                     packageData.sub_menu
                   )}&heading=${encodeURIComponent(packageData.heading)}`}
                 >
-                  <button className="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-semibold py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
-                    Get Your Quote
+                  <button className="w-full bg-yellow-400 hover:bg-yellow-200 shadow-amber-400 text-black font-semibold py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
+                    Get Quotes
                   </button>
                 </RouterLink>
 
                 <a
                   href="#"
                   download
-                  className="w-full text-center bg-indigo-300 hover:bg-indigo-500 text-gray-800 font-medium py-2 px-4 rounded-3xl transition duration-200"
+                  className="w-full text-center bg-blue-600 hover:bg-indigo-400 shadow-blue-500 text-white font-medium py-2 px-4 rounded-3xl transition duration-200"
                 >
                   Download Itinerary
                 </a>
+
+                {/* Pay Now (Only if Trekking) */}
+                {packageData.main_menu
+                  ?.toLowerCase()
+                  .includes("trekking") && (
+                  <button className="w-full bg-green-500 hover:bg-green-300 text-white font-medium py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
+                    Pay Now
+                  </button>
+                )}
               </div>
             </div>
           </div>

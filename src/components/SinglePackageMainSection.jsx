@@ -10,14 +10,46 @@ import { Link, useParams } from "react-router-dom";
 const SinglePackageMainSection = () => {
   const { slug } = useParams();
   const [packageData, setPackageData] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetch(`${baseUrl}/api/packages/${slug}/`)
-      .then((res) => res.json())
-      .then((data) => setPackageData(data))
-      .catch((err) => console.error("Error fetching package:", err));
-  }, [slug]);
+      .then((res) => {
+        if (!res.ok) {
+          setNotFound(true);
+          return null;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.packages && Array.isArray(data.packages)) {
+          setPackageData(data.packages);
+          setNotFound(false);
+        } else {
+          setPackageData([]);
+          setNotFound(true);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching package:", err);
+        setNotFound(true);
+      });
+  }, [slug, baseUrl]);
+
+  if (notFound) {
+    return (
+      <div className="w-full min-h-90% flex justify-center items-start mt-4 p-2">
+        <div className="text-center bg-red-100 text-red-700 p-6 rounded shadow-md text-xl font-semibold">
+          <img
+            src="/assets/images/nopackages-available.png"
+            alt="Warning"
+            className="mx-auto mb-4 w-[500px] h-40"
+          />
+        </div>
+      </div>
+    );
+  }
 
   // If packageData is null or still loading, display a loading message.
   if (!packageData) return <p>Loading package...</p>;
@@ -82,51 +114,50 @@ const SinglePackageMainSection = () => {
     );
   };
 
-  const cards = [];
-  cards.push(
-    <div className="w-full h-full lg:w-full bg-gray-50 p-4 rounded space-y-4">
-      {/* Main Card */}
+  // const cards = [];
+  const cards = packageData.map((packageDatas, index) => (
+    <div
+      key={index}
+      className="w-full h-full lg:w-full bg-gray-50 p-4 rounded space-y-4"
+    >
       <div className="w-full h-full bg-white rounded shadow-md overflow-hidden flex flex-col md:flex-row">
-        {/* Image Section */}
         <div className="md:w-1/2 h-100 md:h-auto relative">
-          {/* Premium Sticker */}
           <div className="absolute top-2 left-2 bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-full shadow-md z-10 cursor-pointer">
             Premium
           </div>
           <img
-            src={`${baseUrl}${packageData.image_url}`}
+            src={`${baseUrl}${packageDatas.image_url}`}
             alt="Card"
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
-            style={{ imageRendering: 'auto' }}
+            className="w-full h-full p-4 object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
+            style={{ imageRendering: "auto" }}
           />
         </div>
 
-        {/* Description Section */}
         <div className="md:w-1/2 p-4 flex flex-col justify-between bg-white shadow-lg rounded-lg">
           <div>
-            {/* Title and Description */}
             <h2 className="text-xl font-bold text-gray-800 mb-2">
-              {packageData.heading}
+              {packageDatas.heading}
             </h2>
             <p className="text-gray-600 text-sm mb-4">
-              {packageData.description}
+              {packageDatas.description}
             </p>
 
-            {/* Price Section */}
             <div className="flex justify-between items-center mb-4">
               <span className="text-2xl font-semibold text-amber-950">
-              ₹{packageData.price}
+                ₹{packageDatas.price}
               </span>
               <span className="text-sm text-gray-500">per person</span>
             </div>
 
-            {/* Features Section */}
             <div className="space-y-2 mb-4">
-              {packageData.features && packageData.features.length > 0 ? (
-                packageData.features.map((feature, index) => (
-                  <div key={index} className="flex items-start space-x-2">
+              {packageDatas.features && packageDatas.features.length > 0 ? (
+                packageDatas.features.map((feature, featureIndex) => (
+                  <div
+                    key={featureIndex}
+                    className="flex items-start space-x-2"
+                  >
                     <svg
-                      className="w-5 h-5 text-amber-950"
+                      className="w-5 h-5 text-amber-950 shrink-0 mt-1"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -144,14 +175,13 @@ const SinglePackageMainSection = () => {
               )}
             </div>
 
-            {/* Ratings */}
             <div className="flex items-center space-x-2 mb-4">
               <div className="flex text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
                     className={`w-5 h-5 fill-current ${
-                      i < packageData.ratings
+                      i < packageDatas.ratings
                         ? "text-amber-500"
                         : "text-gray-300"
                     }`}
@@ -162,12 +192,11 @@ const SinglePackageMainSection = () => {
                 ))}
               </div>
               <span className="text-sm text-gray-600">
-                ({packageData.ratings}.0 from 1.2k reviews)
+                ({packageDatas.ratings}.0 from 1.2k reviews)
               </span>
             </div>
 
-            {/* Read More Button */}
-            <Link to={`/packages/${formatSlug(packageData.sub_menu)}/details`}>
+            <Link to={`/packages/${packageDatas._id}/details`}>
               <button className="w-full py-2 bg-amber-950 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 transition cursor-pointer">
                 Read More
               </button>
@@ -175,45 +204,8 @@ const SinglePackageMainSection = () => {
           </div>
         </div>
       </div>
-
-      {/* Read More Toggle */}
-      {/* <div className="w-full">
-          <button
-            onClick={() => toggleShowMore(i)}
-            className="text-amber-950 font-semibold underline hover:text-amber-700 transition"
-          >
-            {showMoreStates[i] ? "Read Less" : "Read More"}
-          </button>
-
-          {showMoreStates[i] && (
-            <div className="mt-3 text-gray-700 text-sm bg-gray-200 p-4 rounded shadow">
-              <ul className="list-disc list-outside pl-5 text-gray-700 space-y-2">
-                <li>
-                  Scenic Transfer to Bentota from Nuwara Eliya enroute visit
-                  St.Clair’s & Devon Falls & Overnight in Bentota with private
-                  transfers.
-                </li>
-                <li>
-                  Discover Kandy: A Cultural and Scenic Journey Through Royal
-                  botanical gardens, kandy museum, ceylon tea museum, cultural
-                  show, Kandy War Cemetery, Kandy viewpoint, Kandy lake,
-                  Kataragama Devalaya Kandy.
-                </li>
-                <li>
-                  Pinnawala Orphanage & Temple of the Tooth Relic Visit,
-                  Overnight in Kandy with private transfers.
-                </li>
-                <li>
-                  Chasing Waterfalls and Scenic Views: A Day of Adventure at
-                  Ramboda Falls, Gregory Lake, and Nuwara Eliya Market with
-                  private transfers.
-                </li>
-              </ul>
-            </div>
-          )}
-        </div> */}
     </div>
-  );
+  ));
 
   return (
     <>

@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup"; // Adjust the path as needed
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export default function Headers() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMiddleMenuOpen, setIsMiddleMenuOpen] = useState(false);
   const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
 
   const servicesTimeout = useRef(null);
   const destinationsTimeout = useRef(null);
+  const middleMenuTimeout = useRef(null);
 
   const [menus, setMenus] = useState([]);
   const [subMenus, setSubMenus] = useState([]);
@@ -39,26 +41,28 @@ export default function Headers() {
       <div className="lg:mx-4 lg:px-2 px-1 py-2 flex justify-between items-center">
         {/* Logo */}
         <div className="text-xl font-bold text-indigo-600 flex items-center space-x-2">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center">
             <img
               src="/assets/images/logo3.png"
               alt="Logo"
               className="w-20 md:w-32 lg:w-20 h-16 md:h-20 lg:h-16 object-contain"
             />
-            <h2 className="font-dancing text-2xl font-extrabold text-blue-800">
-              PARADISE YATRA
+            <h2 className="font-dancing text-2xl font-extrabold text-blue-800 leading-tight text-center">
+              <span className="block">PARADISE</span>
+              <span className="block">YATRA</span>
             </h2>
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex space-x-18">
+        {/* Navigation */}
+        <nav className="hidden md:flex">
           {menus.map((menu) => (
             <React.Fragment key={menu._id}>
               {/* Left Menu */}
               {menu.left_menu && (
                 <div
-                  className="relative"
+                  className="relative mr-4" // Control space between menu items
                   onMouseEnter={() => {
                     clearTimeout(servicesTimeout.current);
                     setIsServicesOpen(true);
@@ -71,7 +75,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
+                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl ml-2"
                   >
                     <span>{menu.left_menu}</span>
                     {isServicesOpen ? (
@@ -82,11 +86,58 @@ export default function Headers() {
                   </a>
 
                   {isServicesOpen && (
-                    <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-xl-md py-2 z-10">
+                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
                       {getSubMenus(menu.left_menu).map((sub) => (
                         <Link
-                          key={crypto.randomUUID()} 
-                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                          key={crypto.randomUUID()}
+                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                            sub.image_url
+                          )}`}
+                          state={{ imageUrl: sub.image_url }}
+                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                        >
+                          {sub.sub_menu}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Middle Menu */}
+              {menu.middle_menu && (
+                <div
+                  className="relative mr-4" // Control space between menu items
+                  onMouseEnter={() => {
+                    clearTimeout(middleMenuTimeout.current);
+                    setIsMiddleMenuOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    middleMenuTimeout.current = setTimeout(() => {
+                      setIsMiddleMenuOpen(false);
+                    }, 200);
+                  }}
+                >
+                  <a
+                    href="#"
+                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
+                  >
+                    <span>{menu.middle_menu}</span>
+                    {isMiddleMenuOpen ? (
+                      <FaChevronUp className="w-3 h-3" />
+                    ) : (
+                      <FaChevronDown className="w-3 h-3" />
+                    )}
+                  </a>
+
+                  {isMiddleMenuOpen && (
+                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
+                      {getSubMenus(menu.middle_menu).map((sub) => (
+                        <Link
+                          key={crypto.randomUUID()}
+                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                            sub.image_url
+                          )}`}
                           state={{ imageUrl: sub.image_url }}
                           className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
                         >
@@ -125,12 +176,14 @@ export default function Headers() {
                   </a>
 
                   {isDestinationsOpen && (
-                    <div className="absolute left-0 mt-2 w-56 bg-white shadow-lg rounded-xl-md py-2 z-10">
+                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
                       {getSubMenus(menu.right_menu).map((sub) => (
                         <Link
-                          key={crypto.randomUUID()} 
+                          key={crypto.randomUUID()}
                           state={{ imageUrl: sub.image_url }}
-                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                          to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                            sub.image_url
+                          )}`}
                           className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
                         >
                           {sub.sub_menu}
@@ -202,29 +255,38 @@ export default function Headers() {
           {Object.entries(menus).map(([key, mainMenu], index) => {
             const isLeftMenuActive =
               activeMobileDropdown === mainMenu.left_menu;
+            const isMiddleMenuActive =
+              activeMobileDropdown === mainMenu.middle_menu;
             const isRightMenuActive =
               activeMobileDropdown === mainMenu.right_menu;
 
             return (
               <div key={index} className="space-y-1">
-                {/* Left Menu Button */}
+                {/* Left Menu */}
                 <button
                   onClick={() =>
                     setActiveMobileDropdown(
                       isLeftMenuActive ? null : mainMenu.left_menu
                     )
                   }
-                  className="block w-full text-left text-gray-700 font-semibold hover:text-blue-800 cursor-pointer"
+                  className="flex items-center w-full text-left text-gray-700 font-semibold hover:text-blue-800"
                 >
-                  {mainMenu.left_menu}
+                  <span>{mainMenu.left_menu}</span>
+                  {isLeftMenuActive ? (
+                    <FaChevronUp className="ml-2 w-4 h-4" />
+                  ) : (
+                    <FaChevronDown className="ml-2 w-4 h-4" />
+                  )}
                 </button>
 
                 {isLeftMenuActive && (
                   <div className="ml-4 space-y-1 text-sm font-medium text-gray-600">
                     {getSubMenus(mainMenu.left_menu).map((sub) => (
                       <Link
-                        key={crypto.randomUUID()} 
-                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                        key={crypto.randomUUID()}
+                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                          sub.image_url
+                        )}`}
                         state={{ imageUrl: sub.image_url }}
                         className="block hover:text-indigo-500"
                       >
@@ -234,24 +296,65 @@ export default function Headers() {
                   </div>
                 )}
 
-                {/* Right Menu Button */}
+                {/* Middle Menu */}
+                <button
+                  onClick={() =>
+                    setActiveMobileDropdown(
+                      isMiddleMenuActive ? null : mainMenu.middle_menu
+                    )
+                  }
+                  className="flex items-center w-full text-left text-gray-700 font-semibold hover:text-blue-800"
+                >
+                  <span>{mainMenu.middle_menu}</span>
+                  {isMiddleMenuActive ? (
+                    <FaChevronUp className="ml-2 w-4 h-4" />
+                  ) : (
+                    <FaChevronDown className="ml-2 w-4 h-4" />
+                  )}
+                </button>
+
+                {isMiddleMenuActive && (
+                  <div className="ml-4 space-y-1 text-sm font-medium text-gray-600">
+                    {getSubMenus(mainMenu.middle_menu).map((sub) => (
+                      <Link
+                        key={crypto.randomUUID()}
+                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                          sub.image_url
+                        )}`}
+                        state={{ imageUrl: sub.image_url }}
+                        className="block hover:text-indigo-500"
+                      >
+                        {sub.sub_menu}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {/* Right Menu */}
                 <button
                   onClick={() =>
                     setActiveMobileDropdown(
                       isRightMenuActive ? null : mainMenu.right_menu
                     )
                   }
-                  className="block w-full text-left text-gray-700 font-semibold hover:text-blue-800"
+                  className="flex items-center w-full text-left text-gray-700 font-semibold hover:text-blue-800"
                 >
-                  {mainMenu.right_menu}
+                  <span>{mainMenu.right_menu}</span>
+                  {isRightMenuActive ? (
+                    <FaChevronUp className="ml-2 w-4 h-4" />
+                  ) : (
+                    <FaChevronDown className="ml-2 w-4 h-4" />
+                  )}
                 </button>
 
                 {isRightMenuActive && (
                   <div className="ml-4 space-y-1 text-sm font-medium text-gray-600">
                     {getSubMenus(mainMenu.right_menu).map((sub) => (
                       <Link
-                        key={crypto.randomUUID()} 
-                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(sub.image_url)}`}
+                        key={crypto.randomUUID()}
+                        to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
+                          sub.image_url
+                        )}`}
                         state={{ imageUrl: sub.image_url }}
                         className="block hover:text-indigo-500"
                       >
