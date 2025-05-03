@@ -37,19 +37,19 @@ export default function Headers() {
   };
 
   return (
-    <header className="bg-yellow-500 fixed top-0 left-0 w-full z-50 ">
+    <header className="bg-transparent absolute top-0 left-0 w-full z-50">
       <div className="lg:mx-4 lg:px-2 px-1 py-2 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-xl font-bold text-indigo-600 flex items-center space-x-2">
+        <div className="text-xl font-bold text-black flex items-center space-x-2">
           <Link to="/" className="flex items-center">
             <img
               src="/assets/images/logo3.png"
               alt="Logo"
               className="w-20 md:w-32 lg:w-20 h-16 md:h-20 lg:h-16 object-contain"
             />
-            <h2 className="font-dancing text-2xl font-extrabold text-blue-800 leading-tight text-center">
-              <span className="block">PARADISE</span>
-              <span className="block">YATRA</span>
+            <h2 className="font-dancing text-2xl font-extrabold leading-tight text-center">
+              <span className="block text-yellow-500">PARADISE</span>
+              <span className="block text-blue-800">YATRA</span>
             </h2>
           </Link>
         </div>
@@ -75,7 +75,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl ml-2"
+                    className="flex items-center space-x-1 text-white font-semibold text-xl ml-2"
                   >
                     <span>{menu.left_menu}</span>
                     {isServicesOpen ? (
@@ -120,7 +120,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
+                    className="flex items-center space-x-1 text-white font-semibold text-xl"
                   >
                     <span>{menu.middle_menu}</span>
                     {isMiddleMenuOpen ? (
@@ -165,7 +165,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-indigo-700 font-semibold text-xl"
+                    className="flex items-center space-x-1 text-white font-semibold text-xl"
                   >
                     <span>{menu.right_menu}</span>
                     {isDestinationsOpen ? (
@@ -214,14 +214,14 @@ export default function Headers() {
               Pay Now
             </button>
 
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-white">
               <i>*Instant payment with RazorPay</i>
             </p>
           </div>
 
           {/* Contact + Enquiry Button */}
-          <div className="flex flex-col items-center text-md text-center text-indigo-700 pl-10 border-l border-white space-y-1 ml-6">
-            <span className="font-semibold border border-indigo-700 rounded-xl px-3 py-1">
+          <div className="flex flex-col items-center text-md text-center bg-gradient-to-br  text-white pl-10 border-l border-white space-y-1 ml-6">
+            <span className="bg-gradient-to-br from-yellow-400 via-indigo-500 to-blue-500 font-semibold rounded-xl px-3 py-1">
               📞 +91- 8979396413
             </span>
           </div>
@@ -233,17 +233,17 @@ export default function Headers() {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div
-            className={`w-6 h-0.5 bg-gray-800 mb-1 transition ${
+            className={`w-6 h-0.5 bg-white mb-1 transition ${
               isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
             }`}
           />
           <div
-            className={`w-6 h-0.5 bg-gray-800 mb-1 transition ${
+            className={`w-6 h-0.5 bg-white mb-1 transition ${
               isMobileMenuOpen ? "opacity-0" : ""
             }`}
           />
           <div
-            className={`w-6 h-0.5 bg-gray-800 transition ${
+            className={`w-6 h-0.5 bg-white transition ${
               isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
             }`}
           />

@@ -1,109 +1,126 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export class ContactForm extends Component {
-  render() {
-    return (
-      <div className="lg:max-w-[50%] max-w-[85%] mx-auto">
-        {/* Contact Form Section */}
-        {/* Responsive Section Heading */}
-        <h1 className="text-4xl font-bold text-center mt-2 mb-6">
-          Get in Touch With Us
-        </h1>
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
 
-        {/* Contact Form Section */}
-        <div className="mt-4 bg-white p-6 shadow lg:max-w-[80%] mx-auto border rounded-lg border-amber-600">
-          <form className="space-y-4">
-            {/* Name Field */}
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5.121 17.804A9 9 0 1118.88 6.197M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </span>
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.phone.match(/^[0-9]{10,15}$/))
+      newErrors.phone = "Phone must be a valid number (10-15 digits)";
+    if (!formData.email.includes("@"))
+      newErrors.email = "Email must contain @";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      console.log("Form submitted:", formData);
+      // Submit logic here
+    }
+  };
+
+  return (
+    <div className="min-h-[50%] bg-gray-100 flex items-center justify-center p-6">
+      <div className="bg-white shadow-lg rounded-2xl overflow-hidden max-w-5xl w-full grid grid-cols-1 md:grid-cols-2">
+        {/* Left Column */}
+        <div className="bg-blue-700 text-white flex flex-col justify-center items-center p-8">
+          <h2 className="text-3xl font-bold mb-4 text-center cursor-default">Get in Touch</h2>
+          <img
+            src="/assets/images/contact-form.png"
+            alt="Contact Us"
+            className="w-3/4 max-w-sm"
+          />
+        </div>
+
+        {/* Right Column */}
+        <div className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block mb-1 font-semibold">Name</label>
               <input
+                name="name"
                 type="text"
-                placeholder="Enter Your Name"
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-amber-500"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Enter Name..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                required
               />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
 
-            {/* Email Field */}
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M16 12H8m0 0l-4 4m4-4l-4-4m8 0h8" />
-                </svg>
-              </span>
+            <div>
+              <label className="block mb-1 font-semibold">Phone</label>
               <input
-                type="email"
-                placeholder="Enter Your Email ID"
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-amber-500"
-              />
-            </div>
-
-            {/* Phone Field */}
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M3 5a2 2 0 012-2h3.6a1 1 0 01.94.658l1.518 4.554a1 1 0 01-.217.977l-2.13 2.13a11.042 11.042 0 005.48 5.48l2.13-2.13a1 1 0 01.977-.217l4.554 1.518A1 1 0 0121 17.4V21a2 2 0 01-2 2h-.01C10.61 23 1 13.39 1 3.01V3a2 2 0 012-2z" />
-                </svg>
-              </span>
-              <input
+                name="phone"
                 type="tel"
-                placeholder="Enter Your Phone Number"
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-amber-500"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+91-XXXXXXXXXX"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+                required
               />
+              {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
             </div>
 
-            {/* Message Field */}
-            <div className="relative">
-              <span className="absolute left-3 top-4 text-gray-400">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z" />
-                </svg>
-              </span>
+            <div>
+              <label className="block mb-1 font-semibold">Email</label>
+              <input
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter email.."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+            </div>
+
+            <div>
+              <label className="block mb-1 font-semibold">Message</label>
               <textarea
+                name="message"
                 rows="4"
-                placeholder="Type Your Message"
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-amber-500"
-              ></textarea>
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Ente message..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
+              {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
             </div>
 
             <button
               type="submit"
-              className="bg-indigo-500 text-white px-2 py-2 rounded-lg hover:bg-indigo-600 transition-all duration-200 w-[20%] mx-auto block cursor-pointer"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-300 transition cursor-pointer"
             >
-              Send
+              Get Quote
             </button>
           </form>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ContactForm;

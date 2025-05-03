@@ -12,19 +12,21 @@ export default function Background() {
   return (
     <section className="relative w-full h-screen overflow-hidden">
       {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source
-          src="/assets/images/backgrounds/bg.mp4"
-          type="video/webm"
-        />
-        Your browser does not support the video tag.
-      </video>
+     
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        >
+          <source src="/assets/images/backgrounds/bg.mp4" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30 pointer-events-none"></div>
+     
 
       {/* Overlay Content */}
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center text-white bg-black/20 px-4">

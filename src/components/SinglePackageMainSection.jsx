@@ -122,13 +122,13 @@ const SinglePackageMainSection = () => {
     >
       <div className="w-full h-full bg-white rounded shadow-md overflow-hidden flex flex-col md:flex-row">
         <div className="md:w-1/2 h-100 md:h-auto relative">
-          <div className="absolute top-2 left-2 bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-full shadow-md z-10 cursor-pointer">
+          {/* <div className="absolute top-2 left-2 bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-full shadow-md z-10 cursor-pointer">
             Premium
-          </div>
+          </div> */}
           <img
             src={`${baseUrl}${packageDatas.image_url}`}
             alt="Card"
-            className="w-full h-full p-4 object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
+            className="w-full h-full p-2 object-cover hover:scale-105 transition-transform duration-300 ease-in-out"
             style={{ imageRendering: "auto" }}
           />
         </div>
@@ -263,17 +263,18 @@ const SinglePackageMainSection = () => {
                 <span className="hover:underline cursor-pointer">Home</span>
                 <span className="ml-2">{">"}</span>
                 <span className="hover:underline cursor-pointer ml-2">
-                  {packageData.main_menu}
+                  {packageData[0].main_menu}
+                  {/* {console.log(packageData[0].main_menu)} */}
                 </span>
                 <span className="ml-2">{">"}</span>
                 <span className="text-amber-950 font-semibold ml-2">
-                  {packageData.sub_menu}
+                  {packageData[0].sub_menu}
                 </span>
               </nav>
             </div>
             <div className="w-full bg-gray-300 rounded-lg text-left mt-2 mb-4 p-6 sm:p-4 md:p-5 min-h-[80px]">
               <p className="text-3xl text-black font-bold sm:text-xl md:text-2xl">
-                {packageData.sub_menu}
+                {packageData[0].sub_menu}
               </p>
             </div>
 

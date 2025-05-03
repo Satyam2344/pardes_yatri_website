@@ -533,7 +533,7 @@ const OverviewMainSection = () => {
                 <a
                   href="#"
                   download
-                  className="w-full text-center bg-blue-600 hover:bg-indigo-400 shadow-blue-500 shadow-blue-500 text-white font-medium py-2 px-4 rounded-xl transition duration-200"
+                  className="w-full text-center bg-blue-600 hover:bg-indigo-400 shadow-blue-500 text-white font-medium py-2 px-4 rounded-xl transition duration-200"
                 >
                   Download Itinerary
                 </a>
