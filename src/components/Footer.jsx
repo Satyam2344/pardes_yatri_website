@@ -1,114 +1,182 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [openSection, setOpenSection] = useState(null);
+  const [sections, setSections] = useState([]);
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const toggleSection = (section) => {
     setOpenSection((prev) => (prev === section ? null : section));
   };
 
-  // Dynamic data for the sections
-  const sections = [
-    {
-      title: "International Trip",
-      key: "international",
-      items: [
-        { label: "Trip to Europe", link: "/international/trip1" },
-        { label: "Trip to Asia", link: "/international/trip2" },
-        { label: "Trip to Australia", link: "/international/trip3" },
-      ],
-    },
-    {
-      title: "India Trip",
-      key: "india",
-      items: [
-        { label: "Trip to Goa", link: "/india/trip1" },
-        { label: "Trip to Kerala", link: "/india/trip2" },
-        { label: "Trip to Rajasthan", link: "/india/trip3" },
-      ],
-    },
-    {
-      title: "Quick Links",
-      key: "quick",
-      items: [
-        { label: "Home", link: "/" },
-        { label: "About", link: "/aboutus" },
-        { label: "Contact", link: "/contactus" },
-        { label: "Blog", link: "/blog" },
-      ],
-    },
-    {
-      title: "Trending Destinations",
-      key: "trending",
-      items: [
-        { label: "Maldives", link: "/trending/destination1" },
-        { label: "Bali", link: "/trending/destination2" },
-        { label: "Paris", link: "/trending/destination3" },
-        { label: "New York", link: "/trending/destination4" },
-      ],
-    },
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/api/sub_menus/`);
+        const data = await response.json();
+
+        const menus = data.menus[0]; // Since menus is an array, we extract the first item
+        const subMenus = data.subMenus;
+
+        const formattedSections = [
+          {
+            title: menus.left_menu,
+            key: "left-menu",
+            items: subMenus
+              .filter((sub) => sub.main_menu === menus.left_menu)
+              .map((sub) => ({
+                label: sub.sub_menu,
+                link: sub.link,
+                imageUrl: sub.image_url,
+              })),
+          },
+          {
+            title: menus.middle_menu,
+            key: "middle-menu",
+            items: subMenus
+              .filter((sub) => sub.main_menu === menus.middle_menu)
+              .map((sub) => ({
+                label: sub.sub_menu,
+                link: sub.link,
+                imageUrl: sub.image_url,
+              })),
+          },
+          {
+            title: menus.right_menu,
+            key: "right-menu",
+            items: subMenus
+              .filter((sub) => sub.main_menu === menus.right_menu)
+              .map((sub) => ({
+                label: sub.sub_menu,
+                link: sub.link,
+                imageUrl: sub.image_url,
+              })),
+          },
+        ];
+
+        setSections(formattedSections); // Set the state with the formatted sections
+      } catch (error) {
+        console.error("Failed to fetch footer menus:", error);
+      }
+    };
+
+    fetchMenu();
+  }, [baseUrl]);
+
+  // Quick Links section
+  const quickLinks = [
+    { label: "Home", link: "/" },
+    { label: "About Us", link: "/aboutus" },
+    { label: "Contact", link: "/contactus" },
+    { label: "Blog", link: "/blog" },
+    { label: "Privacy", link : "/PrivacyPolicy"}
   ];
+
   return (
     <>
-      {/* Trip Links Section */}
-
       {/* Footer Section */}
       <footer className="bg-gray-900 text-white py-6 px-4 mt-10">
         <div className="text-white border-b border-gray-400 pb-6">
           {/* Desktop Grid */}
           <div className="hidden sm:grid max-w-7xl mx-auto grid-cols-1 sm:grid-cols-4 text-center">
-            {sections.map((section) => (
-              <div key={section.key}>
-                <h3 className="text-xl font-semibold mb-2">{section.title}</h3>
-                <ul className="space-y-1">
-                  {section.items.map((item) => (
-                    <li key={item.link}>
-                      <Link
-                        to={item.link}
-                        className="text-gray-300 hover:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile Dropdowns */}
-          <div className="sm:hidden max-w-3xl mx-auto space-y-4 mt-4 px-4">
-            {sections.map((section) => (
-              <div key={section.key} className="bg-gray-800 rounded-lg p-4">
-                <button
-                  onClick={() => toggleSection(section.key)}
-                  className="w-full text-left text-lg font-semibold text-white flex justify-between items-center"
-                >
-                  {section.title}
-                  <span>{openSection === section.key ? "▲" : "▼"}</span>
-                </button>
-                {openSection === section.key && (
-                  <ul className="mt-2 space-y-1">
+            {sections.length > 0 &&
+              sections.map((section) => (
+                <div key={section.key}>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-1">
                     {section.items.map((item) => (
                       <li key={item.link}>
                         <Link
                           to={item.link}
-                          className="block text-gray-300 hover:text-white"
+                          className="text-gray-300 hover:text-white"
                         >
                           {item.label}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+
+            {/* Quick Links Section */}
+            <div>
+              <h3 className="text-xl font-semibold mb-2">Quick Links</h3>
+              <ul className="space-y-1">
+                {quickLinks.map((item) => (
+                  <li key={item.link}>
+                    <Link
+                      to={item.link}
+                      className="text-gray-300 hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Mobile Dropdowns */}
+          <div className="sm:hidden max-w-3xl mx-auto space-y-4 mt-4 px-4">
+            {sections.length > 0 &&
+              sections.map((section) => (
+                <div key={section.key} className="bg-gray-800 rounded-lg p-4">
+                  <button
+                    onClick={() => toggleSection(section.key)}
+                    className="w-full text-left text-lg font-semibold text-white flex justify-between items-center"
+                  >
+                    {section.title}
+                    <span>{openSection === section.key ? "▲" : "▼"}</span>
+                  </button>
+                  {openSection === section.key && (
+                    <ul className="mt-2 space-y-1">
+                      {section.items.map((item) => (
+                        <li key={item.link}>
+                          <Link
+                            to={item.link}
+                            className="block text-gray-300 hover:text-white"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+
+            {/* Quick Links Section for Mobile */}
+            <div className="bg-gray-800 rounded-lg p-4">
+              <button
+                onClick={() => toggleSection("quick-links")}
+                className="w-full text-left text-lg font-semibold text-white flex justify-between items-center"
+              >
+                Quick Links
+                <span>{openSection === "quick-links" ? "▲" : "▼"}</span>
+              </button>
+              {openSection === "quick-links" && (
+                <ul className="mt-2 space-y-1">
+                  {quickLinks.map((item) => (
+                    <li key={item.link}>
+                      <Link
+                        to={item.link}
+                        className="block text-gray-300 hover:text-white"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
 
+        {/* Brand Info Section */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          {/* Brand Info */}
           <div>
             {/* Heading with image */}
             <div className="flex items-center gap-3 mb-2">
@@ -147,7 +215,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
             <div className="flex flex-wrap gap-4 text-2xl">
-              {/* Facebook */}
+              {/* Social Media Links */}
               <a href="#" className="hover:text-blue-400">
                 <img
                   src="/assets/images/social_media/facebook.png"
@@ -156,7 +224,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Twitter */}
               <a href="#" className="hover:text-blue-500">
                 <img
                   src="/assets/images/social_media/twitter.png"
@@ -165,7 +232,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Generic Social */}
               <a href="#" className="hover:text-pink-500">
                 <img
                   src="/assets/images/social_media/social.png"
@@ -174,7 +240,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Instagram */}
               <a href="#" className="hover:text-pink-600">
                 <img
                   src="/assets/images/social_media/instagram.png"
@@ -183,7 +248,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Gmail */}
               <a
                 href="mailto:your-email@gmail.com"
                 className="hover:text-red-600"
@@ -195,7 +259,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* LinkedIn */}
               <a
                 href="https://linkedin.com"
                 target="_blank"
@@ -209,7 +272,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Telegram */}
               <a
                 href="https://t.me/yourhandle"
                 target="_blank"
@@ -223,7 +285,6 @@ const Footer = () => {
                 />
               </a>
 
-              {/* Reddit */}
               <a
                 href="https://reddit.com"
                 target="_blank"

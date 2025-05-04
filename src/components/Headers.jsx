@@ -20,6 +20,46 @@ export default function Headers() {
 
   const [menus, setMenus] = useState([]);
   const [subMenus, setSubMenus] = useState([]);
+  const [amount, setAmount] = useState("");
+
+  const handlePayNow = async () => {
+    const res = await fetch(`${baseUrl}/api/create-order/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: parseInt(amount) * 100 }), // Convert ₹ to paise
+    });
+    const orderData = await res.json();
+
+    const options = {
+      key: "rzp_test_2FS6Jm7237DXfM",
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "Paradise Yatra",
+      description: "Payment for Tour Package",
+      order_id: orderData.id,
+      handler: async function (response) {
+        console.log("Razorpay response:", response),
+          await fetch(`${baseUrl}/api/verify-and-save-payment/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+              amount: orderData.amount,
+              email: "satgup6902@gmail.com",
+              timestamp: new Date().toISOString(),
+            }),
+          });
+        alert("Payment Successful");
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
   useEffect(() => {
     fetch(`${baseUrl}/api/sub_menus/`)
@@ -75,7 +115,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-white font-semibold text-xl ml-2"
+                    className="flex items-center space-x-1 text-yellow-400 font-semibold text-xl ml-2"
                   >
                     <span>{menu.left_menu}</span>
                     {isServicesOpen ? (
@@ -86,7 +126,7 @@ export default function Headers() {
                   </a>
 
                   {isServicesOpen && (
-                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
+                    <div className="absolute left-0 mt-3 w-56 bg-yellow-400 rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
                       {getSubMenus(menu.left_menu).map((sub) => (
                         <Link
                           key={crypto.randomUUID()}
@@ -94,7 +134,7 @@ export default function Headers() {
                             sub.image_url
                           )}`}
                           state={{ imageUrl: sub.image_url }}
-                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                          className="block px-4 py-2 font-medium text-gray-900 hover:bg-yellow-200"
                         >
                           {sub.sub_menu}
                         </Link>
@@ -120,7 +160,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-white font-semibold text-xl"
+                    className="flex items-center space-x-1 text-yellow-400 font-semibold text-xl"
                   >
                     <span>{menu.middle_menu}</span>
                     {isMiddleMenuOpen ? (
@@ -131,7 +171,7 @@ export default function Headers() {
                   </a>
 
                   {isMiddleMenuOpen && (
-                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
+                    <div className="absolute left-0 mt-3 w-56 bg-yellow-400 rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
                       {getSubMenus(menu.middle_menu).map((sub) => (
                         <Link
                           key={crypto.randomUUID()}
@@ -139,7 +179,7 @@ export default function Headers() {
                             sub.image_url
                           )}`}
                           state={{ imageUrl: sub.image_url }}
-                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                          className="block px-4 py-2 font-medium text-gray-900 hover:bg-yellow-200"
                         >
                           {sub.sub_menu}
                         </Link>
@@ -165,7 +205,7 @@ export default function Headers() {
                 >
                   <a
                     href="#"
-                    className="flex items-center space-x-1 text-white font-semibold text-xl"
+                    className="flex items-center space-x-1 text-yellow-400 font-semibold text-xl"
                   >
                     <span>{menu.right_menu}</span>
                     {isDestinationsOpen ? (
@@ -176,7 +216,7 @@ export default function Headers() {
                   </a>
 
                   {isDestinationsOpen && (
-                    <div className="absolute left-0 mt-3 w-56 bg-white rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
+                    <div className="absolute left-0 mt-3 w-56 bg-yellow-400 rounded-xl shadow-xl py-2 z-10 ring-1 ring-indigo-100 transition-all duration-200 ease-in-out">
                       {getSubMenus(menu.right_menu).map((sub) => (
                         <Link
                           key={crypto.randomUUID()}
@@ -184,7 +224,7 @@ export default function Headers() {
                           to={`/packages/${sub.sub_menu.toLowerCase()}?imageUrl=${encodeURIComponent(
                             sub.image_url
                           )}`}
-                          className="block px-4 py-2 text-gray-700 hover:bg-indigo-100"
+                          className="block px-4 py-2 font-medium text-gray-900 hover:bg-yellow-200"
                         >
                           {sub.sub_menu}
                         </Link>
@@ -210,9 +250,13 @@ export default function Headers() {
             </button>
           </Link>
           <div className="text-center mt-7">
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-400 transition cursor-pointer">
-              Pay Now
-            </button>
+            <div className="space-y-4">
+              <Link to="/PaymentForm">
+                <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-400 transition cursor-pointer">
+                  Pay Now
+                </button>
+              </Link>
+            </div>
 
             <p className="mt-2 text-sm text-white">
               <i>*Instant payment with RazorPay</i>
@@ -229,21 +273,21 @@ export default function Headers() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-8 h-8 ml-2"
+          className="md:hidden flex flex-col justify-center items-center w-8 h-8 px-4 mr-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div
-            className={`w-6 h-0.5 bg-white mb-1 transition ${
+            className={`w-6 h-0.5 bg-yellow-500 mb-1 transition ${
               isMobileMenuOpen ? "rotate-45 translate-y-1" : ""
             }`}
           />
           <div
-            className={`w-6 h-0.5 bg-white mb-1 transition ${
+            className={`w-6 h-0.5 bg-yellow-500 mb-1 transition ${
               isMobileMenuOpen ? "opacity-0" : ""
             }`}
           />
           <div
-            className={`w-6 h-0.5 bg-white transition ${
+            className={`w-6 h-0.5 bg-blue-500 transition ${
               isMobileMenuOpen ? "-rotate-45 -translate-y-1" : ""
             }`}
           />
@@ -380,9 +424,11 @@ export default function Headers() {
             </button>
           </Link>
           <div className="text-left mt-2">
-            <button className="block w-[25%] text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-400 mt-2">
-              Pay Now
-            </button>
+            <Link to="/PaymentForm">
+              <button className="block w-[25%] text-center bg-green-600 text-white py-2 rounded-lg hover:bg-green-400 mt-2">
+                Pay Now
+              </button>
+            </Link>
             <p className="mt-2 text-sm text-gray-600">
               <i>*Instant payment with RazorPay</i>
             </p>
@@ -391,7 +437,10 @@ export default function Headers() {
             <p className="text-yellow-800 font-bold italic tracking-wide hover:text-yellow-600 transition duration-200">
               Enquiry Now
             </p>
-            <p className="font-semibold">📞 +91-987XXXXXXXXX</p>
+            <p className="font-semibold">
+              📞 +91-8979396413 (For Sales and Enquiry)
+            </p>
+            <p className="font-semibold">📞 +91-9873391733 (For Operations)</p>
           </div>
         </div>
       )}

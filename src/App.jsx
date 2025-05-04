@@ -14,7 +14,9 @@ import SelectionPage from "./pages/SelectionPage";
 import BookingForm from "./pages/BookingForm";
 import SimilarTrip from "./pages/SimilarTrip";
 import FetchPage from "./pages/fetchPage";
-
+import PaymentForm from "./pages/PaymentForm";
+import PaymentFormTrekking from "./pages/PaymentFormTrekking";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 function App() {
   return (
     <>
@@ -33,6 +35,9 @@ function App() {
           <Route path="/bookingForm" element={<BookingForm />} />
           <Route path="/similarTrips" element={<SimilarTrip />} />
           <Route path="/FetchPage" element={<FetchPage />} />
+          <Route path="/PaymentForm" element={<PaymentForm />} />
+          <Route path="/PaymentFormTrekking" element={<PaymentFormTrekking />} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         </Routes>
       </Router>
     </>

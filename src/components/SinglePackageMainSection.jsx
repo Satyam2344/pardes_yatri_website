@@ -39,7 +39,7 @@ const SinglePackageMainSection = () => {
 
   if (notFound) {
     return (
-      <div className="w-full min-h-90% flex justify-center items-start mt-4 p-2">
+      <div className="w-full min-h-90% flex justify-center items-start p-2">
         <div className="text-center bg-red-100 text-red-700 p-6 rounded shadow-md text-xl font-semibold">
           <img
             src="/assets/images/nopackages-available.png"

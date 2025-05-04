@@ -9,8 +9,6 @@ const Blog = () => {
   return (
     <div>
       <Headers />
-      <Commonbg imageUrl={bgImage} />
-
       <AllBlogs />
       <ContactForm />
       <Footer />

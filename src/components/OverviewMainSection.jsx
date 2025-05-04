@@ -146,7 +146,7 @@ const OverviewMainSection = () => {
     <div className="flex justify-center mt-30 font-sans">
       <div className="flex w-full max-w-screen-2xl">
         {/* Left Column */}
-        <div className="hidden lg:block w-[5%] bg-white "></div>
+        <div className="hidden lg:block w-[5%] bg-white"></div>
 
         {/* Middle Column */}
         <div className="min-h-screen flex flex-col lg:flex-row w-full">
@@ -540,12 +540,12 @@ const OverviewMainSection = () => {
                 {/* {console.log("Main Menu Name:", packageData.main_menu)} */}
 
                 {/* Pay Now (Only if Trekking) */}
-                {packageData.main_menu
-                  ?.toLowerCase()
-                  .includes("trekking") && (
-                  <button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-xl transition duration-200">
-                    Pay Now
-                  </button>
+                {packageData.main_menu?.toLowerCase().includes("trekking") && (
+                   <RouterLink to={`/PaymentFormTrekking?id=${packageData._id}&sub_menu=${packageData.sub_menu}&heading=${packageData.heading}&price=${packageData.price}`}>
+                    <button className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-xl transition duration-200">
+                      Pay Now
+                    </button>
+                  </RouterLink>
                 )}
               </div>
             </div>
@@ -589,12 +589,12 @@ const OverviewMainSection = () => {
                 </a>
 
                 {/* Pay Now (Only if Trekking) */}
-                {packageData.main_menu
-                  ?.toLowerCase()
-                  .includes("trekking") && (
-                  <button className="w-full bg-green-500 hover:bg-green-300 text-white font-medium py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
-                    Pay Now
-                  </button>
+                {packageData.main_menu?.toLowerCase().includes("trekking") && (
+                  <RouterLink to={`/PaymentFormTrekking?id=${packageData._id}&sub_menu=${packageData.sub_menu}&heading=${packageData.heading}&price=${packageData.price}`}>
+                    <button className="w-full bg-green-500 hover:bg-green-300 text-white font-medium py-2 px-4 rounded-3xl transition duration-200 cursor-pointer">
+                      Pay Now
+                    </button>
+                  </RouterLink>
                 )}
               </div>
             </div>

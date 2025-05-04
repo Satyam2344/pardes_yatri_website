@@ -1,15 +1,15 @@
 import React from "react";
 import Headers from "../components/Headers";
 import Footer from "../components/Footer";
-import ContactMainSection from "../components/ContactMainSection";
-const ContactUs = () => {
+import PrivacyPolicySection from "../components/PrivacyPolicySection";
+const PrivacyPolicy = () => {
   return (
     <div>
       <Headers />
-      <ContactMainSection />
+      <PrivacyPolicySection />
       <Footer />
     </div>
   );
 };
 
-export default ContactUs;
+export default PrivacyPolicy;

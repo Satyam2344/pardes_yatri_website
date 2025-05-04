@@ -9,7 +9,6 @@ const AboutUs = () => {
   return (
     <div>
       <Headers />
-      <Commonbg imageUrl={bgImage} />
       <AboutMainSection />
       <ContactForm />
       <Footer />

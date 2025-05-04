@@ -66,6 +66,21 @@ const blogPosts = [
 const AllBlogs = () => {
   return (
     <>
+      <section className="relative w-full overflow-hidden">
+        <div className="relative w-full h-[400px] sm:h-[300px] md:h-[300px] lg:h-[600px] xl:h-[600px]">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "url('/assets/images/backgrounds/blog-banner2.jpg')",
+            }}
+          ></div>
+
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/10"></div>
+        </div>
+      </section>
       <div className="flex justify-center bg-gradient-to-br from-white to-indigo-50 mt-6">
         {/* Left Column (15%) */}
         <div className="hidden md:block" style={{ width: "15%" }}></div>
@@ -103,11 +118,11 @@ const AllBlogs = () => {
                       <p className="uppercase font-semibold text-xs mb-2.5 text-purple-600">
                         {post.date}
                       </p>
-                      
-                        <h2 className="text-2xl font-bold leading-5 p-2 text-black dark:text-white transition-colors duration-200">
-                          {post.title}
-                        </h2>
-                    
+
+                      <h2 className="text-2xl font-bold leading-5 p-2 text-black dark:text-white transition-colors duration-200">
+                        {post.title}
+                      </h2>
+
                       <Link
                         to="/bloging"
                         className="font-medium underline text-purple-600 dark:text-purple-400"
